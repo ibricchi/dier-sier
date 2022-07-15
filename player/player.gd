@@ -16,11 +16,19 @@ func get_movement_input():
 		velocity.y -= 1
 	return velocity.normalized()
 
+var dash_ready: bool = false;
+var dash_callback
+func _on_dash_bar_ready_to_use(dc):
+	dash_callback = dc;
+	dash_ready = true;
+
 var dash: bool = false;
 var dash_timer: float = 0;
 func _unhandled_input(event):
-	if(event.is_action_pressed("ui_left_click") && dash_timer <= 0):
+	if(event.is_action_pressed("ui_left_click") && dash_ready):
 		dash = true;
+		dash_ready = false
+		dash_callback.reset_counter()
 
 func _physics_process(delta):
 	if dash:
@@ -28,9 +36,6 @@ func _physics_process(delta):
 		dash_timer = 0.2
 		var dash_dir = get_local_mouse_position().normalized()
 		velocity = dash_dir * dash_speed
-		print("dash")
-		print("dash_dir: ", dash_dir)
-		print("vecloity: ", velocity)
 	elif dash_timer > 0:
 		# wiat for timer to disipate
 		if get_slide_count() > 0:
@@ -38,11 +43,9 @@ func _physics_process(delta):
 			if collision != null:
 				velocity = velocity.bounce(collision.normal)
 		dash_timer -= delta
-		print("Move")
 	else:
 		# normal movement
 		velocity = get_movement_input() * speed
-		print("Move")
 
 	move_and_slide(velocity)
 	

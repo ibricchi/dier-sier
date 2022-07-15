@@ -9,7 +9,7 @@ extents = Vector2( 520.5, 10 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 12.5, 300.5 )
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D2" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 59, 73 )
@@ -38,6 +38,8 @@ shape = SubResource( 2 )
 position = Vector2( 1017, 292 )
 shape = SubResource( 2 )
 
-[node name="Node2D" parent="." instance=ExtResource( 2 )]
-position = Vector2( 960, 121 )
+[node name="dash_bar" parent="." instance=ExtResource( 2 )]
+position = Vector2( 940, 153 )
 scale = Vector2( 0.045, 0.5 )
+
+[connection signal="ready_to_use" from="dash_bar" to="player" method="_on_dash_bar_ready_to_use"]
