@@ -2,18 +2,26 @@ extends KinematicBody2D
 
 export var speed: int = 200
 export var dash_speed: int = 2000
+export var dice_roll: int = 6
 var velocity: Vector2
+
 
 func get_movement_input():
 	var velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):
 		velocity.x += 1
+		$AnimatedSprite.play("run-s-"+ str(dice_roll))
+		$AnimatedSprite.flip_h = false
 	if Input.is_action_pressed("ui_left"):
 		velocity.x -= 1
+		$AnimatedSprite.play("run-s-"+ str(dice_roll))
+		$AnimatedSprite.flip_h = true
 	if Input.is_action_pressed("ui_down"):
 		velocity.y += 1
+		$AnimatedSprite.play("run-f-"+ str(dice_roll))
 	if Input.is_action_pressed("ui_up"):
 		velocity.y -= 1
+		$AnimatedSprite.play("run-b-"+ str(dice_roll))
 	return velocity.normalized()
 
 var dash_ready: bool = false;
