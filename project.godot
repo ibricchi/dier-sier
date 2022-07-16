@@ -52,7 +52,9 @@ ui_left_click={
 
 [physics]
 
+common/physics_jitter_fix=800.0
 common/enable_pause_aware_picking=true
+2d/physics_engine="GodotPhysics"
 2d/default_gravity=0
 2d/default_gravity_vector=Vector2( 0, 0 )
 2d/default_linear_damp=0.0
