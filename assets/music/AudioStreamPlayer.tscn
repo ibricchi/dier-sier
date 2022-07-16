@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI/AudioStreamPlayer.gd" type="Script" id=1]
+[ext_resource path="res://assets/music/dier_sier_ost.wav" type="AudioStream" id=2]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource( 2 )
+volume_db = -25.0
+autoplay = true
+mix_target = 1
+script = ExtResource( 1 )

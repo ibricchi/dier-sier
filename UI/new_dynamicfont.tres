@@ -1,0 +1,10 @@
+[gd_resource type="DynamicFont" load_steps=2 format=2]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/fonts/koulen/font.ttf"
+
+[resource]
+size = 57
+extra_spacing_top = -34
+extra_spacing_bottom = -37
+font_data = SubResource( 1 )
