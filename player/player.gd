@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 export var speed: int = 200
 export var dash_speed: int = 2000
-export var dice_roll: int
+export var dice_roll: int = 6
 var velocity: Vector2
 var rng = RandomNumberGenerator.new()
 
@@ -36,7 +36,7 @@ const epsilon = 0.0001
 func handle_animation():
 	if(velocity.length_squared() < epsilon):
 		#idle
-		$AnimatedSprite.play("run-f-"+ str(dice_roll))
+		$AnimatedSprite.play("idle-"+ str(dice_roll))
 		return
 	
 	# handle velocities
