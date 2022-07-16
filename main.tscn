@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/Pooltabletiles.png" type="Texture" id=1]
 [ext_resource path="res://scenes/PoolBall.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/music/AudioStreamPlayer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://load_bar/load_bar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://UI/tally.tscn" type="PackedScene" id=6]
@@ -218,6 +219,8 @@ points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 [node name="main" type="Node2D"]
 position = Vector2( 1, 0 )
 script = ExtResource( 7 )
+
+[node name="AudioStreamPlayer" parent="." instance=ExtResource( 3 )]
 
 [node name="PoolTable" type="TileMap" parent="."]
 tile_set = SubResource( 7 )
