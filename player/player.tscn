@@ -52,6 +52,8 @@ spread = 0.0
 gravity = Vector2( 0, 0 )
 scale_amount_curve = SubResource( 257 )
 
+[node name="AnimatedSprite" parent="." instance=ExtResource( 1 )]
+
 [node name="Arrow" type="Sprite" parent="."]
 position = Vector2( 4.23516e-22, 0 )
 scale = Vector2( 1.5, 1.5 )
