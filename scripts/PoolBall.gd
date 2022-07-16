@@ -1,14 +1,19 @@
 extends RigidBody2D
 
-
+var health: int;
 var velocity : Vector2 = Vector2(0,0)
-export var max_shot_strength = 1e4
+export var max_shot_strength = 1e3
  
 func _ready():
 	add_to_group("balls")
+ 
+	self.mass = randi() % 8 + 12
+ 
 	set_collision_layer(4)
 	set_collision_mask(7)
 	mass = randi() % 4 + 12
+	health = randi() % 8;
+	update_color()
 	self.set_gravity_scale(0.0)
 	self.linear_damp = 0.2
 	
@@ -16,14 +21,36 @@ func _ready():
 	self.contacts_reported = 1
 	
 	self.set_bounce(1.0)
-	 
-func hurt():
-	# should do health -= state.current_attack_power
-	# but for now just queue_free
-	
+
+func die():
 	# handle death animation here
 	queue_free()
-	
+
+func hurt():
+	health -= state.current_attack_power
+	if(health <= 0):
+		die()
+	else:
+		update_color()
+
+func update_color():
+	if(health == 1):
+		self.modulate = Color.yellow
+	elif(health == 2):
+		self.modulate = Color.blue
+	elif(health == 3):
+		self.modulate = Color.red
+	elif(health == 4):
+		self.modulate = Color.orangered
+	elif(health == 5):
+		self.modulate = Color.green
+	elif(health == 6):
+		self.modulate = Color.brown
+	elif(health == 7):
+		self.modulate = Color.maroon
+	elif(health == 8):
+		self.modulate = Color.black
+
 func _physics_process(delta):
 	if $Stopped_Timer.is_stopped():
 		if self.linear_velocity.length_squared() < 3000:
@@ -33,9 +60,13 @@ func _physics_process(delta):
 		if self.linear_velocity.length_squared() < 400 : 
 			self.linear_damp = 1.5
 			
-			$Stopped_Timer.wait_time = randf() * 3 + 0.5
+			$Stopped_Timer.wait_time = randf()  + 1.5
 			$Stopped_Timer.start()
-			$Tween.interpolate_property(self,"modulate",self.modulate,Color.red,$Stopped_Timer.time_left,Tween.TRANS_LINEAR)
+<<<<<<< HEAD
+			$Tween.interpolate_property(self,"scale",self.scale,self.scale*1.2,$Stopped_Timer.time_left,Tween.TRANS_EXPO)
+=======
+			$Tween.interpolate_property(self,"modulate",self.modulate,Color.red,$Stopped_Timer.time_left,Tween.TRANS_CUBIC, Tween.EASE_IN)
+>>>>>>> origin/master
 			$Tween.start()
 	
 func _on_PoolBall_body_entered(body):
@@ -55,10 +86,10 @@ func _on_Stopped_Timer_timeout():
 	for player in get_tree().get_nodes_in_group("player"):
 		var dir = (player.position - self.position).normalized()
 		var angle = (randf() * 0.5 - 0.25) * PI
-		var strength =  randf() + 1
-		var shot_dir = 0.2 * Vector2( cos(angle)  , sin(angle)) + 0.8*dir
+		var strength =  randf() + 4
+		var shot_dir = 0.3 * Vector2( cos(angle)  , sin(angle)) + 0.7*dir
 		self.apply_central_impulse( max_shot_strength*  strength * shot_dir )
 	
 	$Tween.stop(self)
-	self.modulate = Color(1,1,1)
+	update_color()
 	

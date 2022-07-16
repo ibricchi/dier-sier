@@ -47,17 +47,17 @@ func _unhandled_input(event):
 		dash_ready = false
 		dash_callback.reset_counter()
 		dash_vector = - get_node(".").position + get_global_mouse_position()
-		arrow = false
+		arrow = true
 
 const epsilon = 0.0001
 func handle_animation():
 	
-	if(arrow):
+	if(arrow): 
 		$Arrow.visible = true
-		$Arrow.rotation = (get_node(".").position - get_global_mouse_position()).angle()- PI/2
-		$Arrow.position = Vector2(
-			-sin((get_node(".").position - get_global_mouse_position()).angle() + PI/2) * 100,
-			cos((get_node(".").position - get_global_mouse_position()).angle() + PI/2) *100
+		$Arrow.rotation = (get_node(".").position - get_global_mouse_position()).angle() - PI/2
+		$Arrow.position = - Vector2(
+			sin((get_node(".").position - get_global_mouse_position()).angle() + PI/2) * 100,
+			-cos((get_node(".").position - get_global_mouse_position()).angle() + PI/2) *100
 		)
 	else:
 		$Arrow.visible = false
