@@ -23,11 +23,12 @@ func spawn( spawn_num ):
 		poolballsprite.velocity = (1 + randf()) * 80 * init_dir
 		poolballsprite.start_spawn_anim()
 
-func spawn_rigid_poolball( pos , vel) : 
+func spawn_rigid_poolball( pos , vel, hp) : 
 	var poolball  = poolball_res.instance()
 	add_child(poolball)
 	poolball.set_linear_velocity( 1.2 * vel)
 	poolball.position = pos
+	poolball.set_health(hp)
 	$SpawnTimer.start()
 	
 	
