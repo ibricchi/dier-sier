@@ -220,8 +220,6 @@ points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 position = Vector2( 1, 0 )
 script = ExtResource( 7 )
 
-[node name="AudioStreamPlayer" parent="." instance=ExtResource( 3 )]
-
 [node name="PoolTable" type="TileMap" parent="."]
 tile_set = SubResource( 7 )
 collision_layer = 2
@@ -269,6 +267,8 @@ position = Vector2( 0, -264 )
 [node name="SpawnTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
+
+[node name="AudioStreamPlayer" parent="." instance=ExtResource( 3 )]
 
 [connection signal="ready_to_use" from="Node2D" to="player" method="_on_dash_bar_ready_to_use"]
 [connection signal="lost_dice" from="tally_system" to="player" method="_on_lost_dice"]
