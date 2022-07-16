@@ -54,7 +54,7 @@ func _unhandled_input(event):
 		dash_vector = - get_node(".").position + get_global_mouse_position()
 		arrow = true
 
-const epsilon = 0.0001
+const epsilon = 1e-4
 func handle_animation():
 	
 	if(arrow): 
@@ -135,8 +135,8 @@ func _physics_process(delta):
 			# normal movement
 			velocity = get_movement_input() * speed
 		else:
-			velocity = Vector2(0,0)
-	
+			velocity *= (1-delta)
+			
 	move_and_slide(velocity)
 
 signal take_damage(dice_num)
@@ -153,7 +153,8 @@ func _on_collision(body):
 			# handle taking damage from UI
 			immobile = true
 			
-		
+			self.velocity = ( - body.position + self.position).normalized() * body.get_linear_velocity().length()
+			
 
 
 func _on_exp_body_entered(body):
