@@ -215,6 +215,7 @@ points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 10/z_index = 0
 
 [node name="Node2D" type="Node2D"]
+position = Vector2( 1, 0 )
 
 [node name="PoolTable" type="TileMap" parent="."]
 tile_set = SubResource( 7 )
@@ -231,8 +232,9 @@ margin_bottom = 299.0
 [node name="player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 424, 148 )
 scale = Vector2( 0.5, 0.5 )
+ 
 dash_speed = 1200
-
+ 
 [node name="PoolBall" parent="." instance=ExtResource( 2 )]
 position = Vector2( 318, 237 )
 

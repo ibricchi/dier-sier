@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Pooltabletiles.png-1bd261684f809c9b37ccdfdd2446878e.stex"
+path="res://.import/dice_3.png-3f65853654d03c4bc48463e8a419ef69.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Pooltabletiles.png"
-dest_files=[ "res://.import/Pooltabletiles.png-1bd261684f809c9b37ccdfdd2446878e.stex" ]
+source_file="res://assets/dice_3.png"
+dest_files=[ "res://.import/dice_3.png-3f65853654d03c4bc48463e8a419ef69.stex" ]
 
 [params]
 

@@ -14,6 +14,17 @@ config/name="dier-sier"
 run/main_scene="res://UI/title_screen.tscn"
 config/icon="res://icon.png"
 
+
+[display]
+
+window/size/width=1080
+window/size/height=720
+window/size/resizable=false
+window/size/test_width=1620
+window/size/test_height=1080
+window/stretch/mode="2d"
+window/stretch/aspect="keep_width"
+
 [autoload]
 
 state="*res://state.gd"
@@ -53,6 +64,11 @@ ui_left_click={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/AsepriteWizard/plugin.cfg" )
+
 
 [physics]
 
