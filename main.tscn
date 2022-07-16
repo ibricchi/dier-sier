@@ -5,7 +5,8 @@
 [ext_resource path="res://UI/overlay.tscn" type="PackedScene" id=3]
 [ext_resource path="res://player/player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://load_bar/load_bar.tscn" type="PackedScene" id=5]
-[ext_resource path="res://main.gd" type="Script" id=6]
+[ext_resource path="res://UI/tally.tscn" type="PackedScene" id=6]
+[ext_resource path="res://main.gd" type="Script" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=9]
 points = PoolVector2Array( 0, 12, 4, 12, 12, 24, 52, 24, 60, 12, 64, 12, 64, 64, 0, 64 )
@@ -217,7 +218,7 @@ points = PoolVector2Array( 0, 0, 64, 0, 64, 64, 0, 64 )
 
 [node name="main" type="Node2D"]
 position = Vector2( 1, 0 )
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 
 [node name="PoolTable" type="TileMap" parent="."]
 tile_set = SubResource( 7 )
@@ -231,11 +232,16 @@ scale = Vector2( 0.05, 0.3 )
 recharge_time = 4.0
 
 [node name="overlay" parent="." instance=ExtResource( 3 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 65.0
 margin_right = 1047.0
 margin_bottom = 299.0
+
+[node name="tally_system" parent="." instance=ExtResource( 6 )]
+margin_left = -1.0
+margin_right = -1.0
 
 [node name="player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 424, 148 )
@@ -270,5 +276,7 @@ position = Vector2( 0, -264 )
 wait_time = 5.0
 one_shot = true
 
+[connection signal="gave_damage" from="player" to="tally_system" method="_on_player_gave_damage"]
+[connection signal="take_damage" from="player" to="tally_system" method="_on_player_take_damage"]
 [connection signal="ready_to_use" from="Node2D" to="player" method="_on_dash_bar_ready_to_use"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
