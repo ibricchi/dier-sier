@@ -837,5 +837,5 @@ animation = "run-b-4"
 
 [node name="Arrow" type="Sprite" parent="."]
 position = Vector2( 4.23516e-22, 0 )
-scale = Vector2( 2.5, 2.5 )
+scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 26 )
