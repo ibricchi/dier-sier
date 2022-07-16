@@ -11,8 +11,12 @@ config_version=4
 [application]
 
 config/name="dier-sier"
-run/main_scene="res://main.tscn"
+run/main_scene="res://UI/title_screen.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+state="*res://state.gd"
 
 [input]
 
