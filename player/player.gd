@@ -8,9 +8,9 @@ var dash_vector: Vector2
 var rng = RandomNumberGenerator.new()
 var arrow:bool = false
 
- 
-
 func _ready():
+	self.set_collision_layer(1)
+	self.set_collision_mask(7)
 	self.add_to_group("player")
  
 export var dice_tally_attack = {
@@ -41,6 +41,7 @@ func _on_dash_bar_ready_to_use(dc):
 	dash_ready = true;
 
 var dash: bool = false;
+var dashing: bool = false;
 var dash_timer: float = 0;
 func _unhandled_input(event):
 	if(event.is_action_pressed("ui_left_click")):
@@ -95,7 +96,10 @@ func _process(delta):
 
 func _physics_process(delta):
 	if dash:
+		self.set_collision_layer(0)
+		self.set_collision_mask(3)
 		dash = false
+		dashing = true
 		dash_timer = 0.2
 		var dash_dir = dash_vector.normalized()
 		velocity = dash_dir * dash_speed
@@ -111,8 +115,23 @@ func _physics_process(delta):
 				velocity = velocity.bounce(collision.normal)
 		dash_timer -= delta
 	else:
+		dashing = false
+		self.set_collision_layer(1)
+		self.set_collision_mask(7)
 		# normal movement
 		velocity = get_movement_input() * speed
 
 	move_and_slide(velocity)
-	
+
+signal take_damage
+signal gave_damage
+func _on_collision(body):
+	if body.is_in_group("balls"):
+		if(dashing):
+			# handle giving dammage from UI
+			emit_signal("gave_damage")
+			body.hurt()
+		else:
+			# handle taking damage from UI
+			emit_signal("take_damage")
+		

@@ -1,5 +1,6 @@
 extends Node
 
+var current_attack_power: int = 1
 var points: Array = [0,0,0,0,0,0]
 var damage: Array = [0,0,0,0,0,0]
 
