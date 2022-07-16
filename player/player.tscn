@@ -52,8 +52,6 @@ spread = 0.0
 gravity = Vector2( 0, 0 )
 scale_amount_curve = SubResource( 257 )
 
-[node name="AnimatedSprite" parent="." instance=ExtResource( 1 )]
-
 [node name="Arrow" type="Sprite" parent="."]
 position = Vector2( 4.23516e-22, 0 )
 scale = Vector2( 1.5, 1.5 )
@@ -74,6 +72,8 @@ script = ExtResource( 33 )
 [node name="cs" type="CollisionShape2D" parent="exp"]
 position = Vector2( -1, -7 )
 shape = SubResource( 260 )
+
+[node name="AnimatedSprite" parent="." instance=ExtResource( 1 )]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_collision"]
 [connection signal="body_entered" from="exp" to="exp" method="_on_collision"]
