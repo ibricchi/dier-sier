@@ -1,4 +1,4 @@
-[gd_scene load_steps=196 format=2]
+[gd_scene load_steps=197 format=2]
 
 [ext_resource path="res://assets/dice-man/dice-man-3.png" type="Texture" id=1]
 [ext_resource path="res://player/player.gd" type="Script" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://assets/dice-man/dice-man-idle-4-Sheet.png" type="Texture" id=23]
 [ext_resource path="res://assets/dice-man/dice-man-idle-6-Sheet.png" type="Texture" id=24]
 [ext_resource path="res://assets/dice-man/dice-man-idle-5-Sheet.png" type="Texture" id=25]
+[ext_resource path="res://assets/arrow.png" type="Texture" id=26]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -830,5 +831,11 @@ script = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 1.5, 1.5 )
 frames = SubResource( 20 )
 animation = "run-b-4"
+
+[node name="Arrow" type="Sprite" parent="."]
+position = Vector2( 4.23516e-22, 0 )
+scale = Vector2( 2.5, 2.5 )
+texture = ExtResource( 26 )
