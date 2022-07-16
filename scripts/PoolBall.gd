@@ -41,7 +41,7 @@ func hurt():
 
 func update_color():
 	var ball_res = load("res://assets/ball%s.png" % [self.health])
-	print("res://assets/ball%s.png" % [self.health])
+	 
 	$number.texture = ball_res
 	$number.modulate = Color(1,1,1)
 	if(health == 1):
