@@ -1,35 +1,31 @@
 extends Control
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-var hits = [0,0,0,0,0,0]
-var damage = [0,0,0,0,0,0]
-var super = [0,0,0,0,0,0]
-
 signal game_over
 signal attack_bonus(super_boost, dice_num)
 
+func _unhandled_input(event):
+	if(event.is_action_pressed("ui_accept")):
+		get_tree().change_scene_to(death_screen)
 
 func _on_player_gave_damage(dice_num):
-	print("hit")
-	if hits[dice_num - 1] != 10:
-		hits[dice_num - 1] += 1
-	
-		get_child(dice_num-1).update_gui(hits[dice_num-1], damage[dice_num-1], super[dice_num -1])
+	if state.hits[dice_num - 1] != 10:
+		state.hits[dice_num - 1] += 1
+		get_child(dice_num-1).update_gui(state.hits[dice_num-1], state.damage[dice_num-1], state.super[dice_num -1])
 
+onready var death_screen: PackedScene = load("res://UI/title_screen.tscn")
+func check_exit():
+	var legal = []
+	for i in 6:
+		if state.damage[i] < 3:
+			legal.push_back(i + 1)
+	if len(legal) == 0:
+		get_tree().change_scene_to(death_screen)
 
+signal lost_dice(dice_num)
 func _on_player_take_damage(dice_num):
-	print("damage")
-	if damage[dice_num -1] != 3:
-		damage[dice_num - 1] += 1
-	
-		get_child(dice_num-1).update_gui(hits[dice_num-1], damage[dice_num-1], super[dice_num -1])
+	if state.damage[dice_num -1] != 3:
+		state.damage[dice_num - 1] += 1
+		get_child(dice_num-1).update_gui(state.hits[dice_num-1], state.damage[dice_num-1], state.super[dice_num -1])
+		if state.damage[dice_num-1] == 3:
+			check_exit()
+			emit_signal("lost_dice", dice_num)
