@@ -7,9 +7,9 @@ var load_bar_y: float
 
 func _ready():
 	load_bar_y = load_bar.scale.y
-	print(load_bar_y)
+	#print(load_bar_y)
 
-export var recharge_time: float = 5
+export var recharge_time: float = 1
 var ended: bool = false
 var timer: float = recharge_time
 
@@ -24,5 +24,5 @@ func _process(delta):
 		ended = true
 		emit_signal("ready_to_use", self)
 	load_bar.scale.y = (recharge_time - timer)/recharge_time*load_bar_y;
-	print(load_bar.scale.y)
+	#print(load_bar.scale.y)
 	

@@ -2,9 +2,9 @@ extends KinematicBody2D
 
 export var speed: int = 200
 export var dash_speed: int = 2000
-export var dice_roll: int = 6
+export var dice_roll: int
 var velocity: Vector2
-
+var rng = RandomNumberGenerator.new()
 
 func get_movement_input():
 	var velocity = Vector2()
@@ -44,6 +44,9 @@ func _physics_process(delta):
 		dash_timer = 0.2
 		var dash_dir = get_local_mouse_position().normalized()
 		velocity = dash_dir * dash_speed
+		rng.randomize()
+		dice_roll = rng.randi_range(1, 6)
+		print(dice_roll)
 	elif dash_timer > 0:
 		# wiat for timer to disipate
 		if get_slide_count() > 0:
