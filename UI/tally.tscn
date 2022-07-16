@@ -17,9 +17,9 @@ anchor_bottom = 1.0
 script = ExtResource( 10 )
 
 [node name="tally-1" type="Container" parent="."]
-margin_left = 105.0
+margin_left = 155.0
 margin_top = 100.0
-margin_right = 315.0
+margin_right = 365.0
 margin_bottom = 149.0
 script = ExtResource( 3 )
 
@@ -130,9 +130,9 @@ texture = ExtResource( 4 )
 stretch_mode = 6
 
 [node name="tally-2" type="Container" parent="."]
-margin_left = 105.0
+margin_left = 155.0
 margin_top = 261.0
-margin_right = 315.0
+margin_right = 365.0
 margin_bottom = 310.0
 script = ExtResource( 3 )
 
@@ -243,9 +243,9 @@ texture = ExtResource( 4 )
 stretch_mode = 6
 
 [node name="tally-3" type="Container" parent="."]
-margin_left = 105.0
+margin_left = 155.0
 margin_top = 422.0
-margin_right = 315.0
+margin_right = 365.0
 margin_bottom = 471.0
 script = ExtResource( 3 )
 
@@ -356,9 +356,9 @@ texture = ExtResource( 4 )
 stretch_mode = 6
 
 [node name="tally-4" type="Container" parent="."]
-margin_left = 755.0
+margin_left = 705.0
 margin_top = 100.0
-margin_right = 965.0
+margin_right = 915.0
 margin_bottom = 149.0
 script = ExtResource( 3 )
 
@@ -469,9 +469,9 @@ texture = ExtResource( 4 )
 stretch_mode = 6
 
 [node name="tally-5" type="Container" parent="."]
-margin_left = 755.0
+margin_left = 705.0
 margin_top = 261.0
-margin_right = 965.0
+margin_right = 915.0
 margin_bottom = 310.0
 script = ExtResource( 3 )
 
@@ -582,9 +582,9 @@ texture = ExtResource( 4 )
 stretch_mode = 6
 
 [node name="tally-6" type="Container" parent="."]
-margin_left = 755.0
+margin_left = 705.0
 margin_top = 422.0
-margin_right = 965.0
+margin_right = 915.0
 margin_bottom = 471.0
 script = ExtResource( 3 )
 
