@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-
+var health: int;
 var velocity : Vector2 = Vector2(0,0)
 export var max_shot_strength = 1e4
  
@@ -9,6 +9,8 @@ func _ready():
 	set_collision_layer(4)
 	set_collision_mask(7)
 	mass = randi() % 4 + 12
+	health = randi() % 8;
+	update_color()
 	self.set_gravity_scale(0.0)
 	self.linear_damp = 0.2
 	
@@ -16,14 +18,36 @@ func _ready():
 	self.contacts_reported = 1
 	
 	self.set_bounce(1.0)
-	 
-func hurt():
-	# should do health -= state.current_attack_power
-	# but for now just queue_free
-	
+
+func die():
 	# handle death animation here
 	queue_free()
-	
+
+func hurt():
+	health -= state.current_attack_power
+	if(health <= 0):
+		die()
+	else:
+		update_color()
+
+func update_color():
+	if(health == 1):
+		self.modulate = Color.yellow
+	elif(health == 2):
+		self.modulate = Color.blue
+	elif(health == 3):
+		self.modulate = Color.red
+	elif(health == 4):
+		self.modulate = Color.orangered
+	elif(health == 5):
+		self.modulate = Color.green
+	elif(health == 6):
+		self.modulate = Color.brown
+	elif(health == 7):
+		self.modulate = Color.maroon
+	elif(health == 8):
+		self.modulate = Color.black
+
 func _physics_process(delta):
 	if $Stopped_Timer.is_stopped():
 		if self.linear_velocity.length_squared() < 3000:
@@ -35,7 +59,7 @@ func _physics_process(delta):
 			
 			$Stopped_Timer.wait_time = randf() * 3 + 0.5
 			$Stopped_Timer.start()
-			$Tween.interpolate_property(self,"modulate",self.modulate,Color.red,$Stopped_Timer.time_left,Tween.TRANS_LINEAR)
+			$Tween.interpolate_property(self,"scale",self.scale,self.scale*1.2,$Stopped_Timer.time_left,Tween.TRANS_EXPO)
 			$Tween.start()
 	
 func _on_PoolBall_body_entered(body):
@@ -60,5 +84,5 @@ func _on_Stopped_Timer_timeout():
 		self.apply_central_impulse( max_shot_strength*  strength * shot_dir )
 	
 	$Tween.stop(self)
-	self.modulate = Color(1,1,1)
+	update_color()
 	
