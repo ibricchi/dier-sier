@@ -2,11 +2,11 @@ extends RigidBody2D
 
 
 var velocity : Vector2 = Vector2(0,0)
-export var max_shot_strength = 1e4
+export var max_shot_strength = 1e3
  
 func _ready():
 	add_to_group("balls")
-	mass = randi() % 4 + 12
+	self.mass = randi() % 8 + 12
 	self.set_gravity_scale(0.0)
 	self.linear_damp = 0.2
 	
@@ -26,9 +26,9 @@ func _physics_process(delta):
 		if self.linear_velocity.length_squared() < 400 : 
 			self.linear_damp = 1.5
 			
-			$Stopped_Timer.wait_time = randf() * 3 + 0.5
+			$Stopped_Timer.wait_time = randf()  + 1.5
 			$Stopped_Timer.start()
-			$Tween.interpolate_property(self,"modulate",self.modulate,Color.red,$Stopped_Timer.time_left,Tween.TRANS_LINEAR)
+			$Tween.interpolate_property(self,"modulate",self.modulate,Color.red,$Stopped_Timer.time_left,Tween.TRANS_CUBIC, Tween.EASE_IN)
 			$Tween.start()
 	
 
@@ -49,8 +49,8 @@ func _on_Stopped_Timer_timeout():
 	for player in get_tree().get_nodes_in_group("player"):
 		var dir = (player.position - self.position).normalized()
 		var angle = (randf() * 0.5 - 0.25) * PI
-		var strength =  randf() + 1
-		var shot_dir = 0.2 * Vector2( cos(angle)  , sin(angle)) + 0.8*dir
+		var strength =  randf() + 4
+		var shot_dir = 0.3 * Vector2( cos(angle)  , sin(angle)) + 0.7*dir
 		self.apply_central_impulse( max_shot_strength*  strength * shot_dir )
 	
 	$Tween.stop(self)
