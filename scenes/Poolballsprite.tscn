@@ -1,19 +1,18 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/poolball.png" type="Texture" id=1]
-[ext_resource path="res://scripts/PoolBall.gd" type="Script" id=2]
+[ext_resource path="res://scripts/Poolballsprite.gd" type="Script" id=2]
 [ext_resource path="res://assets/ball1.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.0
 
-[node name="PoolBall" type="RigidBody2D"]
-gravity_scale = 0.0
-linear_damp = 0.01
-angular_damp = 0.0
+[node name="KinematicBody2D" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource( 2 )
 
-[node name="Poolball" type="Sprite" parent="."]
+[node name="Poolballsprite" type="Sprite" parent="."]
 scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 1 )
 
@@ -21,15 +20,10 @@ texture = ExtResource( 1 )
 scale = Vector2( 0.8, 0.8 )
 shape = SubResource( 1 )
 
-[node name="Stopped_Timer" type="Timer" parent="."]
-wait_time = 25.0
-one_shot = true
-
 [node name="Tween" type="Tween" parent="."]
 
 [node name="number" type="Sprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 3 )
 
-[connection signal="body_entered" from="." to="." method="_on_PoolBall_body_entered"]
-[connection signal="timeout" from="Stopped_Timer" to="." method="_on_Stopped_Timer_timeout"]
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

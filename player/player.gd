@@ -2,21 +2,26 @@ extends KinematicBody2D
 
 export var speed: int = 200
 export var dash_speed: int = 2000
+var prev_dice_roll: int
 var dice_roll: int
 var velocity: Vector2
 var dash_vector: Vector2
-var rng = RandomNumberGenerator.new()
-var arrow:bool = false
+var arrow: bool = false
 var immobile:bool = false
 
 func _ready():
-	rng.randomize()
-	dice_roll = rng.randi_range(1, 6)
+	dice_roll = state.roll_dice()
+	prev_dice_roll = dice_roll
 	self.set_collision_layer(1)
 	self.set_collision_mask(7)
 	self.add_to_group("player")
  
-
+func _on_lost_dice(dice_num):
+	dice_roll = state.roll_dice()
+	prev_dice_roll = dice_roll
+	$explosion.emitting = true
+	$exp.start()
+	
 
 func get_movement_input():
 	var velocity = Vector2()
@@ -47,17 +52,17 @@ func _unhandled_input(event):
 		dash_ready = false
 		dash_callback.reset_counter()
 		dash_vector = - get_node(".").position + get_global_mouse_position()
-		arrow = false
+		arrow = true
 
 const epsilon = 0.0001
 func handle_animation():
 	
-	if(arrow):
+	if(arrow): 
 		$Arrow.visible = true
-		$Arrow.rotation = (get_node(".").position - get_global_mouse_position()).angle()- PI/2
-		$Arrow.position = Vector2(
-			-sin((get_node(".").position - get_global_mouse_position()).angle() + PI/2) * 100,
-			cos((get_node(".").position - get_global_mouse_position()).angle() + PI/2) *100
+		$Arrow.rotation = (get_node(".").position - get_global_mouse_position()).angle() - PI/2
+		$Arrow.position = - Vector2(
+			sin((get_node(".").position - get_global_mouse_position()).angle() + PI/2) * 100,
+			-cos((get_node(".").position - get_global_mouse_position()).angle() + PI/2) *100
 		)
 	else:
 		$Arrow.visible = false
@@ -105,10 +110,15 @@ func _physics_process(delta):
 		dash_timer = 0.2
 		var dash_dir = dash_vector.normalized()
 		velocity = dash_dir * dash_speed
-		rng.randomize()
-		dice_roll = rng.randi_range(1, 6)
+		prev_dice_roll = dice_roll
+		dice_roll = state.roll_dice()
 		print(dice_roll)
 		handle_animation()
+		$particles.texture = $AnimatedSprite.get_sprite_frames().get_frame(
+			$AnimatedSprite.get_animation(),
+			$AnimatedSprite.get_frame()
+		)
+		$particles.emitting = true;
 	elif dash_timer > 0:
 		# wiat for timer to disipate
 		if get_slide_count() > 0:
@@ -117,6 +127,7 @@ func _physics_process(delta):
 				velocity = velocity.bounce(collision.normal)
 		dash_timer -= delta
 	else:
+		$particles.emitting = false;
 		if not immobile:	
 			dashing = false
 			self.set_collision_layer(1)
@@ -135,12 +146,15 @@ func _on_collision(body):
 	if body.is_in_group("balls") and not immobile:
 		if(dashing):
 			# handle giving dammage from UI
-			emit_signal("gave_damage", dice_roll)
+			emit_signal("gave_damage", prev_dice_roll)
 			body.hurt()
 		else:
-			
-			emit_signal("take_damage", dice_roll)
+			emit_signal("take_damage", prev_dice_roll)
 			# handle taking damage from UI
 			immobile = true
 			
 		
+
+
+func _on_exp_body_entered(body):
+	pass # Replace with function body.
