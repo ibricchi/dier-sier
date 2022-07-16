@@ -229,7 +229,7 @@ tile_data = PoolIntArray( -1, 1610612745, 0, -65536, 1610612745, 0, -65535, 1610
 [node name="Node2D" parent="." instance=ExtResource( 5 )]
 position = Vector2( 78, 193 )
 scale = Vector2( 0.05, 0.3 )
-recharge_time = 3.0
+recharge_time = 2.0
 
 [node name="overlay" parent="." instance=ExtResource( 3 )]
 visible = false

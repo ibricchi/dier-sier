@@ -28,16 +28,34 @@ func set_health(hp):
 
 func die():
 	# handle death animation here
-	get_parent().remove_child(self)
+	$number.hide()
+	$Poolball.hide()
+	$Death_particles.emitting = true
+	
+	self.set_collision_layer(0)
+	self.set_collision_mask(0)
 	self.remove_from_group("balls")
+	
+	yield(get_tree().create_timer(6), "timeout")
+	
+	get_parent().remove_child(self)
+	
 	queue_free()
 
 func hurt():
+	# handle hurt animation here
+	for player in get_tree().get_nodes_in_group("player"):
+		$Hurt_particles.amount = 20 + 5 * self.health
+		$Hurt_particles.direction = player.velocity.normalized()
+		$Hurt_particles.color = $Poolball.modulate
+		$Hurt_particles.emitting = true
 	health -= state.current_attack_power
 	if(health <= 0):
 		die()
 	else:
 		update_color()
+		
+	$Stopped_Timer.stop()
 
 func update_color():
 	var ball_res = load("res://assets/ball%s.png" % [self.health])
@@ -66,9 +84,9 @@ func _physics_process(delta):
 	if $Stopped_Timer.is_stopped():
 		if self.linear_velocity.length_squared() < 3000:
 			self.linear_damp = 0.5
-		if self.linear_velocity.length_squared() < 1000:
+		if self.linear_velocity.length_squared() < 1200:
 			self.linear_damp = 1
-		if self.linear_velocity.length_squared() < 400 : 
+		if self.linear_velocity.length_squared() < 800 : 
 			self.linear_damp = 1.5
 			
 			$Stopped_Timer.wait_time = randf()  + 1.5
@@ -90,12 +108,13 @@ func _on_PoolBall_body_entered(body):
 func _on_Stopped_Timer_timeout():
 	self.linear_damp = 0.3
 	
-	for player in get_tree().get_nodes_in_group("player"):
-		var dir = (player.position - self.position).normalized()
-		var angle = ((randf() * 0.5 - 0.25) * PI) / self.health
-		var strength =  randf() + 4 + self.health
-		var shot_dir = 0.3 * Vector2( cos(angle)  , sin(angle)) + 0.7*dir
-		self.apply_central_impulse( max_shot_strength*  strength * shot_dir )
+	if self.health:
+		for player in get_tree().get_nodes_in_group("player"):
+			var dir = (player.position - self.position).normalized()
+			var angle = ((randf() * 0.5 - 0.25) * PI) / self.health
+			var strength =  randf() + 4 + self.health
+			var shot_dir = 0.3 * Vector2( cos(angle)  , sin(angle)) + 0.7*dir
+			self.apply_central_impulse( max_shot_strength*  strength * shot_dir )
 	
 	$Tween.stop($number)
 	update_color()

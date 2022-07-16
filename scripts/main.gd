@@ -2,7 +2,7 @@ extends Node2D
 
 
 var poolballsprite_res : Resource = preload("res://scenes/Poolballsprite.tscn") 
-var poolball_res  : Resource = preload("res://scenes/Poolball.tscn") 
+var poolball_res  : Resource = preload("res://scenes/PoolBall.tscn") 
 
 var wave_number = 0
 export var wave_cooldown : int = 40 
