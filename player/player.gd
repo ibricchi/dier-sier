@@ -8,6 +8,10 @@ var dash_vector: Vector2
 var rng = RandomNumberGenerator.new()
 var arrow:bool = false
 
+
+func _ready():
+	self.add_to_group("player")
+
 func get_movement_input():
 	var velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):
