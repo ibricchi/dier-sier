@@ -11,16 +11,19 @@ func _ready():
  
 	set_collision_layer(4)
 	set_collision_mask(7)
-	mass = randi() % 4 + 12
-	health = randi() % 8;
+	
 	update_color()
 	self.set_gravity_scale(0.0)
-	self.linear_damp = 0.2
+	self.linear_damp = 0.3
 	
 	self.contact_monitor = true
 	self.contacts_reported = 1
 	
 	self.set_bounce(1.0)
+	
+func set_health(hp):
+	self.health = hp
+	self.update_color()
 
 func die():
 	# handle death animation here
@@ -77,7 +80,7 @@ func _on_PoolBall_body_entered(body):
 
 
 func _on_Stopped_Timer_timeout():
-	self.linear_damp = 0.5
+	self.linear_damp = 0.3
 	
 	for player in get_tree().get_nodes_in_group("player"):
 		var dir = (player.position - self.position).normalized()
