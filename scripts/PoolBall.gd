@@ -62,11 +62,7 @@ func _physics_process(delta):
 			
 			$Stopped_Timer.wait_time = randf()  + 1.5
 			$Stopped_Timer.start()
-<<<<<<< HEAD
-			$Tween.interpolate_property(self,"scale",self.scale,self.scale*1.2,$Stopped_Timer.time_left,Tween.TRANS_EXPO)
-=======
 			$Tween.interpolate_property(self,"modulate",self.modulate,Color.red,$Stopped_Timer.time_left,Tween.TRANS_CUBIC, Tween.EASE_IN)
->>>>>>> origin/master
 			$Tween.start()
 	
 func _on_PoolBall_body_entered(body):
