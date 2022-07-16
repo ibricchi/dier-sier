@@ -3,10 +3,6 @@ extends Control
 signal game_over
 signal attack_bonus(super_boost, dice_num)
 
-func _unhandled_input(event):
-	if(event.is_action_pressed("ui_accept")):
-		get_tree().change_scene_to(death_screen)
-
 func _on_player_gave_damage(dice_num):
 	if state.hits[dice_num - 1] != 10:
 		state.hits[dice_num - 1] += 1
