@@ -9,7 +9,7 @@ func _ready():
 	load_bar_y = load_bar.scale.y
 	print(load_bar_y)
 
-export var recharge_time: float = 5
+export var recharge_time: float = 1
 var ended: bool = false
 var timer: float = recharge_time
 
