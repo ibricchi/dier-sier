@@ -16,7 +16,7 @@ func spawn_wave( ):
 	# maybe have a UI thing indicating the wave number 
 	
 	wave_number += 1 
-	wave_cooldown += 2.5
+	wave_cooldown += 4
 	$SpawnTimer.wait_time = wave_cooldown
 	var spawns = $Spawns.get_children() 
 	spawns.shuffle()
