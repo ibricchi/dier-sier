@@ -6,6 +6,8 @@ export var max_shot_strength = 1e4
  
 func _ready():
 	add_to_group("balls")
+	set_collision_layer(4)
+	set_collision_mask(7)
 	mass = randi() % 4 + 12
 	self.set_gravity_scale(0.0)
 	self.linear_damp = 0.2
@@ -15,7 +17,12 @@ func _ready():
 	
 	self.set_bounce(1.0)
 	 
-
+func hurt():
+	# should do health -= state.current_attack_power
+	# but for now just queue_free
+	
+	# handle death animation here
+	queue_free()
 	
 func _physics_process(delta):
 	if $Stopped_Timer.is_stopped():
@@ -31,7 +38,6 @@ func _physics_process(delta):
 			$Tween.interpolate_property(self,"modulate",self.modulate,Color.red,$Stopped_Timer.time_left,Tween.TRANS_LINEAR)
 			$Tween.start()
 	
-
 func _on_PoolBall_body_entered(body):
 	self.linear_velocity *= 0.95 # slow down a bit when colliding
 	
