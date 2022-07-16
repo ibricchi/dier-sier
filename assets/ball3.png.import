@@ -2,25 +2,25 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ball1.png-62dcb963ddf104d032758590a5d28841.stex"
+path="res://.import/ball3.png-31b0580bdcc1c82a8e1cd59df397ba2f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/ball1.png"
-dest_files=[ "res://.import/ball1.png-62dcb963ddf104d032758590a5d28841.stex" ]
+source_file="res://assets/ball3.png"
+dest_files=[ "res://.import/ball3.png-31b0580bdcc1c82a8e1cd59df397ba2f.stex" ]
 
 [params]
 
-compress/mode=3
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2

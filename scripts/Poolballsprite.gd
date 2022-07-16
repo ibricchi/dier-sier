@@ -24,21 +24,21 @@ func start_spawn_anim():
  
 func update_color():
 	if(health == 1):
-		self.modulate = Color.yellow
+		$Poolballsprite.modulate = Color.yellow
 	elif(health == 2):
-		self.modulate = Color.blue
+		$Poolballsprite.modulate = Color.blue
 	elif(health == 3):
-		self.modulate = Color.red
+		$Poolballsprite.modulate = Color.red
 	elif(health == 4):
-		self.modulate = Color.orangered
+		$Poolballsprite.modulate = Color.orangered
 	elif(health == 5):
-		self.modulate = Color.green
+		$Poolballsprite.modulate = Color.green
 	elif(health == 6):
-		self.modulate = Color.brown
+		$Poolballsprite.modulate = Color.brown
 	elif(health == 7):
-		self.modulate = Color.maroon
+		$Poolballsprite.modulate = Color.maroon
 	elif(health == 8):
-		self.modulate = Color.black
+		$Poolballsprite.modulate = Color.black
 
 func _on_Tween_tween_completed(object, key):
 	self.animations += 1

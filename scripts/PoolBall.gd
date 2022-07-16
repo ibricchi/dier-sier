@@ -40,24 +40,29 @@ func hurt():
 		update_color()
 
 func update_color():
+	var ball_res = load("res://assets/ball%s.png" % [self.health])
+	print("res://assets/ball%s.png" % [self.health])
+	$number.texture = ball_res
+	$number.modulate = Color(1,1,1)
 	if(health == 1):
-		self.modulate = Color.yellow
+		$Poolball.modulate = Color.yellow
 	elif(health == 2):
-		self.modulate = Color.blue
+		$Poolball.modulate = Color.blue
 	elif(health == 3):
-		self.modulate = Color.red
+		$Poolball.modulate = Color.red
 	elif(health == 4):
-		self.modulate = Color.orangered
+		$Poolball.modulate = Color.orangered
 	elif(health == 5):
-		self.modulate = Color.green
+		$Poolball.modulate = Color.green
 	elif(health == 6):
-		self.modulate = Color.brown
+		$Poolball.modulate = Color.brown
 	elif(health == 7):
-		self.modulate = Color.maroon
+		$Poolball.modulate = Color.maroon
 	elif(health == 8):
-		self.modulate = Color.black
+		$Poolball.modulate = Color.black
 
 func _physics_process(delta):
+	 
 	if $Stopped_Timer.is_stopped():
 		if self.linear_velocity.length_squared() < 3000:
 			self.linear_damp = 0.5
@@ -68,7 +73,7 @@ func _physics_process(delta):
 			
 			$Stopped_Timer.wait_time = randf()  + 1.5
 			$Stopped_Timer.start()
-			$Tween.interpolate_property(self,"modulate",self.modulate,Color.red,$Stopped_Timer.time_left,Tween.TRANS_CUBIC, Tween.EASE_IN)
+			$Tween.interpolate_property($number,"modulate",self.modulate,Color.red,$Stopped_Timer.time_left,Tween.TRANS_CUBIC, Tween.EASE_IN)
 			$Tween.start()
 	
 func _on_PoolBall_body_entered(body):
@@ -92,6 +97,6 @@ func _on_Stopped_Timer_timeout():
 		var shot_dir = 0.3 * Vector2( cos(angle)  , sin(angle)) + 0.7*dir
 		self.apply_central_impulse( max_shot_strength*  strength * shot_dir )
 	
-	$Tween.stop(self)
+	$Tween.stop($number)
 	update_color()
 	
