@@ -8,15 +8,6 @@ var dash_vector: Vector2
 var rng = RandomNumberGenerator.new()
 var arrow:bool = false
 
-export var dice_tally_attack = {
-	"1":[0,10], "2":[0,10], "3":[0,10],"4":[0,10], "5":[0,10], "6":[0,10] 
-}
-
-
-export var dice_tally_damage = {
-	"1":0, "2":0, "3":0,"4":0, "5":0, "6":0 
-}
-
 func get_movement_input():
 	var velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):

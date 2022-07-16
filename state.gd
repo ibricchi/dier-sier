@@ -1,6 +1,6 @@
 extends Node
 
-var points: Array = [0,0,0,0,0,0]
+var points: Array = [0,0,0,0,0,0] # 2d array
 var damage: Array = [0,0,0,0,0,0]
 
 signal reload_overlay
