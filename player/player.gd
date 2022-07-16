@@ -10,18 +10,12 @@ func get_movement_input():
 	var velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):
 		velocity.x += 1
-		$AnimatedSprite.play("run-s-"+ str(dice_roll))
-		$AnimatedSprite.flip_h = false
 	if Input.is_action_pressed("ui_left"):
 		velocity.x -= 1
-		$AnimatedSprite.play("run-s-"+ str(dice_roll))
-		$AnimatedSprite.flip_h = true
 	if Input.is_action_pressed("ui_down"):
 		velocity.y += 1
-		$AnimatedSprite.play("run-f-"+ str(dice_roll))
 	if Input.is_action_pressed("ui_up"):
 		velocity.y -= 1
-		$AnimatedSprite.play("run-b-"+ str(dice_roll))
 	return velocity.normalized()
 
 var dash_ready: bool = false;
@@ -38,6 +32,36 @@ func _unhandled_input(event):
 		dash_ready = false
 		dash_callback.reset_counter()
 
+const epsilon = 0.0001
+func handle_animation():
+	if(velocity.length_squared() < epsilon):
+		#idle
+		$AnimatedSprite.play("run-f-"+ str(dice_roll))
+		return
+	
+	# handle velocities
+	if velocity.y > 0: #upwards
+		if velocity.y > abs(velocity.x): # upwards is stronger than right legft
+			$AnimatedSprite.play("run-f-"+ str(dice_roll))
+		elif velocity.x > 0: #right
+			$AnimatedSprite.play("run-s-"+ str(dice_roll))
+			$AnimatedSprite.flip_h = false
+		else: # left
+			$AnimatedSprite.play("run-s-"+ str(dice_roll))
+			$AnimatedSprite.flip_h = true
+	else: #downwards
+		if -velocity.y > abs(velocity.x): # downwards is stronger than right legft
+			$AnimatedSprite.play("run-b-"+ str(dice_roll))
+		elif velocity.x > 0: #right
+			$AnimatedSprite.play("run-s-"+ str(dice_roll))
+			$AnimatedSprite.flip_h = false
+		else: # left
+			$AnimatedSprite.play("run-s-"+ str(dice_roll))
+			$AnimatedSprite.flip_h = true
+
+func _process(delta):
+	handle_animation()
+
 func _physics_process(delta):
 	if dash:
 		dash = false
@@ -47,6 +71,7 @@ func _physics_process(delta):
 		rng.randomize()
 		dice_roll = rng.randi_range(1, 6)
 		print(dice_roll)
+		handle_animation()
 	elif dash_timer > 0:
 		# wiat for timer to disipate
 		if get_slide_count() > 0:
