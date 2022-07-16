@@ -58,26 +58,27 @@ func hurt():
 	$Stopped_Timer.stop()
 
 func update_color():
-	var ball_res = load("res://assets/ball%s.png" % [self.health])
-	 
-	$number.texture = ball_res
-	$number.modulate = Color(1,1,1)
-	if(health == 1):
-		$Poolball.modulate = Color.yellow
-	elif(health == 2):
-		$Poolball.modulate = Color.blue
-	elif(health == 3):
-		$Poolball.modulate = Color.red
-	elif(health == 4):
-		$Poolball.modulate = Color.orangered
-	elif(health == 5):
-		$Poolball.modulate = Color.green
-	elif(health == 6):
-		$Poolball.modulate = Color.brown
-	elif(health == 7):
-		$Poolball.modulate = Color.maroon
-	elif(health == 8):
-		$Poolball.modulate = Color.black
+	if health >= 1:
+		var ball_res = load("res://assets/ball%s.png" % [self.health])
+		 
+		$number.texture = ball_res
+		$number.modulate = Color(1,1,1)
+		if(health == 1):
+			$Poolball.modulate = Color.yellow
+		elif(health == 2):
+			$Poolball.modulate = Color.blue
+		elif(health == 3):
+			$Poolball.modulate = Color.red
+		elif(health == 4):
+			$Poolball.modulate = Color.orangered
+		elif(health == 5):
+			$Poolball.modulate = Color.green
+		elif(health == 6):
+			$Poolball.modulate = Color.brown
+		elif(health == 7):
+			$Poolball.modulate = Color.maroon
+		elif(health == 8):
+			$Poolball.modulate = Color.black
 
 func _physics_process(delta):
 	 
