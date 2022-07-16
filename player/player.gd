@@ -109,6 +109,11 @@ func _physics_process(delta):
 		dice_roll = rng.randi_range(1, 6)
 		print(dice_roll)
 		handle_animation()
+		$particles.texture = $AnimatedSprite.get_sprite_frames().get_frame(
+			$AnimatedSprite.get_animation(),
+			$AnimatedSprite.get_frame()
+		)
+		$particles.emitting = true;
 	elif dash_timer > 0:
 		# wiat for timer to disipate
 		if get_slide_count() > 0:
@@ -117,6 +122,7 @@ func _physics_process(delta):
 				velocity = velocity.bounce(collision.normal)
 		dash_timer -= delta
 	else:
+		$particles.emitting = false;
 		if not immobile:	
 			dashing = false
 			self.set_collision_layer(1)
