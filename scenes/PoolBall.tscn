@@ -21,7 +21,7 @@ scale = Vector2( 0.8, 0.8 )
 shape = SubResource( 1 )
 
 [node name="Stopped_Timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 25.0
 one_shot = true
 
 [node name="Tween" type="Tween" parent="."]

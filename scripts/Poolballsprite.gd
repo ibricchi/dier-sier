@@ -7,8 +7,10 @@ var max_size = Vector2(1.6,1.6)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	 
-	health = randi() % 8;
+	add_to_group("balls")
+	
+func set_health(hp):
+	self.health = hp
 	self.update_color()
 
 func _process(delta):
@@ -42,6 +44,7 @@ func _on_Tween_tween_completed(object, key):
 	self.animations += 1
 	if self.animations > 1 : 
 		$"/root/main".spawn_rigid_poolball(self.position, self.velocity, self.health)
+		self.remove_from_group("balls")
 		get_parent().remove_child(self)
 		queue_free()
 	else : 

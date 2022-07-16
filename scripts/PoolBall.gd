@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-var health: int;
+var health: int =  1;
 var velocity : Vector2 = Vector2(0,0)
 export var max_shot_strength = 1e3
  
@@ -20,6 +20,7 @@ func _ready():
 	self.contacts_reported = 1
 	
 	self.set_bounce(1.0)
+	self.update_color()
 	
 func set_health(hp):
 	self.health = hp
@@ -27,6 +28,8 @@ func set_health(hp):
 
 func die():
 	# handle death animation here
+	get_parent().remove_child(self)
+	self.remove_from_group("balls")
 	queue_free()
 
 func hurt():
@@ -84,8 +87,8 @@ func _on_Stopped_Timer_timeout():
 	
 	for player in get_tree().get_nodes_in_group("player"):
 		var dir = (player.position - self.position).normalized()
-		var angle = (randf() * 0.5 - 0.25) * PI
-		var strength =  randf() + 4
+		var angle = ((randf() * 0.5 - 0.25) * PI) / self.health
+		var strength =  randf() + 4 + self.health
 		var shot_dir = 0.3 * Vector2( cos(angle)  , sin(angle)) + 0.7*dir
 		self.apply_central_impulse( max_shot_strength*  strength * shot_dir )
 	
