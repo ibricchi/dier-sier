@@ -58,9 +58,9 @@ valign = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
 margin_left = 470.0
-margin_top = 398.274
+margin_top = 398.0
 margin_right = 613.0
-margin_bottom = 474.274
+margin_bottom = 474.0
 texture = ExtResource( 5 )
 expand = true
 stretch_mode = 6
