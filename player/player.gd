@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 export var speed: int = 200
 export var dash_speed: int = 2000
+var prev_dice_roll: int
 var dice_roll: int
 var velocity: Vector2
 var dash_vector: Vector2
@@ -12,6 +13,7 @@ var immobile:bool = false
 func _ready():
 	rng.randomize()
 	dice_roll = rng.randi_range(1, 6)
+	prev_dice_roll = dice_roll
 	self.set_collision_layer(1)
 	self.set_collision_mask(7)
 	self.add_to_group("player")
@@ -106,6 +108,7 @@ func _physics_process(delta):
 		var dash_dir = dash_vector.normalized()
 		velocity = dash_dir * dash_speed
 		rng.randomize()
+		prev_dice_roll = dice_roll
 		dice_roll = rng.randi_range(1, 6)
 		print(dice_roll)
 		handle_animation()
@@ -141,11 +144,11 @@ func _on_collision(body):
 	if body.is_in_group("balls") and not immobile:
 		if(dashing):
 			# handle giving dammage from UI
-			emit_signal("gave_damage", dice_roll)
+			emit_signal("gave_damage", prev_dice_roll)
 			body.hurt()
 		else:
 			
-			emit_signal("take_damage", dice_roll)
+			emit_signal("take_damage", prev_dice_roll)
 			# handle taking damage from UI
 			immobile = true
 			

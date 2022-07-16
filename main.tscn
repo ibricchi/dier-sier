@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/Pooltabletiles.png" type="Texture" id=1]
 [ext_resource path="res://scenes/PoolBall.tscn" type="PackedScene" id=2]
@@ -276,7 +276,7 @@ position = Vector2( 0, -264 )
 wait_time = 5.0
 one_shot = true
 
+[connection signal="ready_to_use" from="Node2D" to="player" method="_on_dash_bar_ready_to_use"]
 [connection signal="gave_damage" from="player" to="tally_system" method="_on_player_gave_damage"]
 [connection signal="take_damage" from="player" to="tally_system" method="_on_player_take_damage"]
-[connection signal="ready_to_use" from="Node2D" to="player" method="_on_dash_bar_ready_to_use"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
