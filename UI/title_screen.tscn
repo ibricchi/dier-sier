@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://UI/title_screen.gd" type="Script" id=1]
 [ext_resource path="res://assets/title.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/play_button.png" type="Texture" id=5]
 [ext_resource path="res://UI/AnimationPlayer.gd" type="Script" id=6]
 [ext_resource path="res://assets/music/AudioStreamPlayer.tscn" type="PackedScene" id=7]
+[ext_resource path="res://volume/volume.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "play_bounce"
@@ -80,5 +81,10 @@ anims/play_bounce = SubResource( 1 )
 script = ExtResource( 6 )
 
 [node name="AudioStreamPlayer" parent="." instance=ExtResource( 7 )]
+pause_mode = 2
+volume_db = -5.0
+
+[node name="settings" parent="." instance=ExtResource( 8 )]
 
 [connection signal="pressed" from="TextureRect/Button" to="." method="_on_play_button"]
+[connection signal="change_volume" from="settings" to="AudioStreamPlayer" method="_on_settings_change_volume"]
