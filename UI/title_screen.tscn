@@ -71,7 +71,7 @@ margin_bottom = 451.0
 size_flags_vertical = 6
 custom_colors/font_color = Color( 0.196078, 0.0745098, 0.0745098, 1 )
 custom_fonts/font = SubResource( 2 )
-text = "Credits: Vincent, IBricchi, TheVampster"
+text = "Credits: VSietses, IBricchi, TheVampster"
 align = 1
 valign = 1
 
