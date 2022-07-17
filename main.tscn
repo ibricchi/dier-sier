@@ -269,12 +269,13 @@ one_shot = true
 pause_mode = 2
 volume_db = -5.0
 
-[node name="settings" parent="." instance=ExtResource( 9 )]
-margin_right = 1088.0
-margin_bottom = 576.0
-
 [node name="death_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 4
+
+[node name="settings" parent="CanvasLayer" instance=ExtResource( 9 )]
 
 [connection signal="ready_to_use" from="Node2D" to="player" method="_on_dash_bar_ready_to_use"]
 [connection signal="game_over" from="tally_system" to="." method="_on_tally_system_game_over"]
@@ -282,4 +283,4 @@ stream = ExtResource( 8 )
 [connection signal="gave_damage" from="player" to="tally_system" method="_on_player_gave_damage"]
 [connection signal="take_damage" from="player" to="tally_system" method="_on_player_take_damage"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
-[connection signal="change_volume" from="settings" to="AudioStreamPlayer" method="_on_settings_change_volume"]
+[connection signal="change_volume" from="CanvasLayer/settings" to="AudioStreamPlayer" method="_on_settings_change_volume"]
