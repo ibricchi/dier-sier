@@ -6,8 +6,9 @@ var time_since_last_attack = 0.0
 var max_shot_strength = 2e4
 
 onready var player = self.get_tree().get_root().get_node("main/player")
-
+signal boss_hurt
 func _ready():
+	
 	self.mass = 15
 	add_to_group("boss")
 	$Poolball.modulate = Color.maroon
@@ -64,7 +65,7 @@ func hurt(obj):
 	$Hurt_particles.direction = Vector2.RIGHT.rotated(player.velocity.angle() - rotation);
 	$Hurt_particles.color = $Poolball.modulate
 	$Hurt_particles.emitting = true
-	
+	emit_signal("boss_hurt")
 	if(health <= 0):
 		die()
 			

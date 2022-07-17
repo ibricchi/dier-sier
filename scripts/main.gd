@@ -6,7 +6,7 @@ var poolball_res  : Resource = preload("res://scenes/PoolBall.tscn")
 var boss1_res : Resource = preload("res://scenes/Boss1.tscn")
 var boss_health_bar : Resource = preload("res://scenes/Boss_health.tscn")
 var boss_respawns = 1 
-var wave_number = 0
+var wave_number = 5
 var boss1_wave_number = 5
 var boss2_wave_number = 8
 export var wave_cooldown : int = 40 
@@ -58,9 +58,7 @@ func spawn_rigid_poolball( pos , vel, hp) :
 	var poolball : Node
 	if hp == 7 :
 		poolball = boss1_res.instance()
-		var boss_health:Node = boss_health_bar.instance()
-		add_child_below_node(get_node("tally_system"),boss_health)
-		boss_health.get_child(0).value = poolball.get("health")
+		
 	else:
 		poolball  = poolball_res.instance()
 		poolball.set_health(hp)
@@ -77,12 +75,7 @@ func _process(delta):
 		$SpawnTimer.set_wait_time(1)
 		$SpawnTimer.start()
 		
-	if get_node("boss_health") and get_node("Boss1"):
-		get_node("boss_health").get_child(0).value = get_node("Boss1").get("health")
-	
-	if get_node("boss_health"):
-		if get_node("boss_health").get_child(0).value <= 0:
-			get_node("boss_health").queue_free()
+		
 		
 	 
 
@@ -96,14 +89,21 @@ func _on_SpawnTimer_timeout():
 	else:
 		spawn_wave()
 
+func update_health_bar():
+	get_node("boss_health").get_child(0).value = get_node("Boss1").get("health")
+	if get_node("boss_health").get_child(0).value <= 0:
+			get_node("boss_health").queue_free()
 
 func first_boss_battle():
+	
+	
 	
 	if boss_respawns :
 		boss_respawns -= 1
 	else:
 		wave_number += 1
-		
+	
+	
 	while not get_tree().get_nodes_in_group("balls").empty():
 		yield(get_tree().create_timer(0.5), "timeout")
 	
@@ -115,12 +115,24 @@ func first_boss_battle():
 	var poolballsprite = poolballsprite_res.instance()
 	add_child(poolballsprite)
 	poolballsprite.set_health( 7 )
+	
 	poolballsprite.position = spawn_point.position + $Spawns.position
 	poolballsprite.velocity = 180 * init_dir
 	poolballsprite.start_spawn_anim()
+	
+	
+	
+	var boss_health:Node = boss_health_bar.instance()
+	
+	boss_health.get_node("health_bar").value = poolballsprite.get("health")
+	yield(get_tree().create_timer(2), "timeout")
+	add_child_below_node(get_node("tally_system"),boss_health)
+	get_node("Boss1").connect("boss_hurt", get_node("main"), "update_health_bar")
 	while not get_tree().get_nodes_in_group("balls").empty():
 		yield(get_tree().create_timer(5), "timeout")
-		
+	
+	
+	
 	while not get_tree().get_nodes_in_group("boss").empty():
 		yield(get_tree().create_timer(2), "timeout")
 	$SpawnTimer.wait_time = 1	

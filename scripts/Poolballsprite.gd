@@ -6,7 +6,7 @@ var velocity = Vector2.ZERO
 var max_size = Vector2(1.6,1.6)
 var is_boss1 = false
 var is_boss2 = false
-
+var boss_health:int;
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	add_to_group("balls")
@@ -14,9 +14,11 @@ func _ready():
 func set_health(hp):
 	if hp == 7:
 		self.is_boss1 = true
+		self.boss_health = 100
 	elif hp ==8 :
 		self.is_boss2 = true
 	self.health = hp
+	
 	self.update_color()
 
 func _process(delta):
