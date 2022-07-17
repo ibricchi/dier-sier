@@ -1,47 +1,47 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://assets/poolball.png" type="Texture" id=1]
-[ext_resource path="res://scripts/PoolBall.gd" type="Script" id=2]
-[ext_resource path="res://assets/ball1.png" type="Texture" id=3]
+[ext_resource path="res://assets/ball7.png" type="Texture" id=1]
+[ext_resource path="res://assets/poolball.png" type="Texture" id=2]
+[ext_resource path="res://scripts/Boss1.gd" type="Script" id=3]
 [ext_resource path="res://assets/particle1.png" type="Texture" id=4]
 [ext_resource path="res://assets/particle2.png" type="Texture" id=5]
-[ext_resource path="res://assets/color_gradients/smoke_grad.tres" type="Gradient" id=6]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.0
 
-[sub_resource type="Gradient" id=3]
+[sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0, 0.779006, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.445867, 1, 1, 1, 0.278431 )
 
-[sub_resource type="Curve" id=4]
+[sub_resource type="Curve" id=3]
 min_value = -40.0
 max_value = 40.0
 _data = [ Vector2( 0.00980392, -16.4545 ), 0.0, 43.6364, 0, 0, Vector2( 0.970588, -40 ), 0.0, 0.0, 0, 0 ]
 
-[node name="PoolBall" type="RigidBody2D"]
-gravity_scale = 0.0
-linear_damp = 0.01
-angular_damp = 0.0
-script = ExtResource( 2 )
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0.0331492, 0.41989, 1 )
+colors = PoolColorArray( 0.120605, 0.10129, 0.10129, 1, 0.836844, 0.825089, 0.825089, 0.606998, 1, 1, 1, 0.266667 )
+
+[node name="Boss1" type="RigidBody2D"]
+script = ExtResource( 3 )
 
 [node name="Poolball" type="Sprite" parent="."]
-scale = Vector2( 0.8, 0.8 )
-texture = ExtResource( 1 )
+scale = Vector2( 1.2, 1.2 )
+texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2( 0.8, 0.8 )
+scale = Vector2( 1.2, 1.2 )
 shape = SubResource( 1 )
 
 [node name="Stopped_Timer" type="Timer" parent="."]
-wait_time = 25.0
+wait_time = 12.0
 one_shot = true
 
-[node name="Tween" type="Tween" parent="."]
-
 [node name="number" type="Sprite" parent="."]
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 3 )
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 1 )
+
+[node name="Tween" type="Tween" parent="."]
 
 [node name="Hurt_particles" type="CPUParticles2D" parent="."]
 emitting = false
@@ -52,7 +52,6 @@ speed_scale = 8.0
 explosiveness = 1.0
 randomness = 0.2
 lifetime_randomness = 0.4
-local_coords = false
 texture = ExtResource( 4 )
 emission_shape = 1
 emission_sphere_radius = 20.0
@@ -64,31 +63,30 @@ angle_random = 0.8
 scale_amount = 0.4
 scale_amount_random = 0.2
 color = Color( 0.929412, 0.870588, 0.870588, 1 )
-color_ramp = SubResource( 3 )
+color_ramp = SubResource( 2 )
 
 [node name="Death_particles" type="CPUParticles2D" parent="."]
 emitting = false
-amount = 500
-lifetime = 5.0
+amount = 800
+lifetime = 6.0
 one_shot = true
-explosiveness = 0.98
-randomness = 0.1
+explosiveness = 0.95
+randomness = 0.3
+lifetime_randomness = 0.1
 local_coords = false
 texture = ExtResource( 5 )
 emission_shape = 1
-emission_sphere_radius = 30.0
-gravity = Vector2( 0, -30 )
-initial_velocity = 10.0
+emission_sphere_radius = 40.0
+gravity = Vector2( 0, -40 )
 initial_velocity_random = 0.8
 angular_velocity = 4.0
 linear_accel = 50.0
 radial_accel = 25.0
 radial_accel_random = 1.0
-radial_accel_curve = SubResource( 4 )
+radial_accel_curve = SubResource( 3 )
 angle = 20.0
 angle_random = 1.0
-scale_amount = 0.4
-color_ramp = ExtResource( 6 )
+scale_amount = 0.5
+color_ramp = SubResource( 4 )
 
-[connection signal="body_entered" from="." to="." method="_on_PoolBall_body_entered"]
 [connection signal="timeout" from="Stopped_Timer" to="." method="_on_Stopped_Timer_timeout"]

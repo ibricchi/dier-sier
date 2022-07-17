@@ -7,6 +7,7 @@ var boss1_res : Resource = preload("res://scenes/Boss1.tscn")
 var boss_respawns = 1 
 var wave_number = 0
 var boss1_wave_number = 5
+var boss2_wave_number = 8
 export var wave_cooldown : int = 40 
 
 func _ready():
@@ -81,6 +82,8 @@ func _on_SpawnTimer_timeout():
  
 	if wave_number == boss1_wave_number:
 		first_boss_battle()
+	elif wave_number == boss2_wave_number:
+		second_boss_battle()
 	else:
 		spawn_wave()
 
@@ -112,6 +115,34 @@ func first_boss_battle():
 		yield(get_tree().create_timer(2), "timeout")
 	$SpawnTimer.wait_time = 1	
 	$SpawnTimer.start()
+	
+	
+
+func second_boss_battle():
+	while not get_tree().get_nodes_in_group("balls").empty():
+		yield(get_tree().create_timer(0.5), "timeout")
+	
+	var spawns = $Spawns.get_children() 
+	spawns.shuffle()
+	var spawn_point = spawns[0]
+	var init_dir = (- spawn_point.position).normalized()
+	
+	var poolballsprite = poolballsprite_res.instance()
+	add_child(poolballsprite)
+	poolballsprite.set_health( 8 )
+	poolballsprite.position = spawn_point.position + $Spawns.position
+	poolballsprite.velocity = 40 * init_dir
+	poolballsprite.start_spawn_anim()
+	while not get_tree().get_nodes_in_group("balls").empty():
+		yield(get_tree().create_timer(5), "timeout")
+		
+	while not get_tree().get_nodes_in_group("boss").empty():
+		yield(get_tree().create_timer(2), "timeout")
+	$SpawnTimer.wait_time = 1	
+	$SpawnTimer.start()
+	
+	
+
  
 onready var death_popup:Node = load("res://UI/death_popup.tscn").instance()
 func _on_tally_system_game_over():

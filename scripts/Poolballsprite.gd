@@ -5,6 +5,7 @@ var animations = 0
 var velocity = Vector2.ZERO
 var max_size = Vector2(1.6,1.6)
 var is_boss1 = false
+var is_boss2 = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,6 +14,8 @@ func _ready():
 func set_health(hp):
 	if hp == 7:
 		self.is_boss1 = true
+	elif hp ==8 :
+		self.is_boss2 = true
 	self.health = hp
 	self.update_color()
 
@@ -22,7 +25,7 @@ func _process(delta):
 func start_spawn_anim():
 	scale = Vector2(0,0)
 	var speed = velocity.length()
-	$Tween.interpolate_property(self, "scale", Vector2.ZERO, (1 + int(is_boss1)) * max_size , 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	$Tween.interpolate_property(self, "scale", Vector2.ZERO, (1 + int(is_boss1) + 1.5 *int(is_boss2)) * max_size , 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	$Tween.start()
  
 func update_color():
@@ -56,7 +59,7 @@ func _on_Tween_tween_completed(object, key):
 		queue_free()
 	else : 
 		var speed = velocity.length()
-		$Tween.interpolate_property(self, "scale", (1 + int(is_boss1)) * max_size, (1 + 0.5*int(is_boss1))* Vector2.ONE,   0.6, Tween.TRANS_CUBIC, Tween.EASE_IN)
+		$Tween.interpolate_property(self, "scale", (1 + int(is_boss1) + 1.5 *int(is_boss2)) * max_size, (1 + 0.5*int(is_boss1) + 0.8 *int(is_boss2))* Vector2.ONE,   0.6, Tween.TRANS_BOUNCE, Tween.EASE_OUT)
 		$Tween.start()
 	
 	

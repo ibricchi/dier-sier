@@ -42,6 +42,9 @@ func die():
 	# handle death animation here
 	$number.hide()
 	$Poolball.hide()
+	
+	var player = get_tree().get_root().get_node("main/player")
+	$Death_particles.direction = Vector2.RIGHT.rotated(player.velocity.angle() - rotation)
 	$Death_particles.emitting = true
 	
 	self.set_collision_layer(0)
@@ -57,6 +60,12 @@ func die():
 		
 func hurt(obj):
 	health -= 5	
+	$Hurt_particles.amount = 20 + 5 * self.health
+	$Hurt_particles.direction = Vector2.RIGHT.rotated(player.velocity.angle() - rotation);
+	$Hurt_particles.color = $Poolball.modulate
+	$Hurt_particles.emitting = true
+	
+	
 	if(health <= 0):
 		die()
 			

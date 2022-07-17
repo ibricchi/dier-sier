@@ -734,9 +734,12 @@ script = ExtResource( 11 )
 [node name="Label" type="Label" parent="Wave_number"]
 modulate = Color( 0.831373, 0.831373, 0.831373, 0.839216 )
 margin_left = 128.0
-margin_top = 20.0
-margin_right = 200.0
-margin_bottom = 30.0
+margin_top = 12.0
+margin_right = 300.0
+margin_bottom = 32.0
+align = 1
+valign = 1
+autowrap = true
 
 [node name="dice_frame" type="TextureRect" parent="."]
 modulate = Color( 0.831373, 0.831373, 0.831373, 0.839216 )
