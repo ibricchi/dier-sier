@@ -6,7 +6,7 @@ var poolball_res  : Resource = preload("res://scenes/PoolBall.tscn")
 var boss1_res : Resource = preload("res://scenes/Boss1.tscn")
 var boss_health_bar : Resource = preload("res://scenes/Boss_health.tscn")
 var boss_respawns = 1 
-var wave_number = 5
+var wave_number = 0
 var boss1_wave_number = 5
 var boss2_wave_number = 8
 export var wave_cooldown : int = 40 
@@ -90,9 +90,16 @@ func _on_SpawnTimer_timeout():
 		spawn_wave()
 
 func update_health_bar(hp):
-	get_node("boss_health").get_child(0).value = hp
-	if hp <= 0:
-			get_node("boss_health").queue_free()
+	
+	
+	if get_node("boss_health"):
+		get_node("boss_health").get_child(0).value = hp
+		if hp <= 0:
+				get_node("boss_health").queue_free()
+	elif hp > 20:
+		var boss_health:Node = boss_health_bar.instance()
+		boss_health.get_node("health_bar").value = hp
+		add_child_below_node(get_node("tally_system"),boss_health)
 
 func first_boss_battle():
 	
@@ -122,12 +129,10 @@ func first_boss_battle():
 	
 	
 	
-	var boss_health:Node = boss_health_bar.instance()
 	
-	boss_health.get_node("health_bar").value = poolballsprite.get("health")
-	yield(get_tree().create_timer(2), "timeout")
-	add_child_below_node(get_node("tally_system"),boss_health)
-	get_node("Boss1").connect("boss_hurt", get_node("main"), "update_health_bar")
+	
+	
+	
 	while not get_tree().get_nodes_in_group("balls").empty():
 		yield(get_tree().create_timer(5), "timeout")
 	
@@ -168,5 +173,11 @@ func second_boss_battle():
  
 onready var death_popup:Node = load("res://UI/death_popup.tscn").instance()
 func _on_tally_system_game_over():
+	var music_position = $AudioStreamPlayer.get_playback_position()
+	$"AudioStreamPlayer".stop()
+	$"death_sound".play()
+	yield($"death_sound","finished")
+	$"AudioStreamPlayer".play(music_position)
+	
 	$"player".queue_free()
 	$".".add_child(death_popup) 

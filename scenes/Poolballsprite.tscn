@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/poolball.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Poolballsprite.gd" type="Script" id=2]
 [ext_resource path="res://assets/ball1.png" type="Texture" id=3]
+[ext_resource path="res://assets/music/fx/spawn.wav" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 32.0
@@ -25,5 +26,9 @@ shape = SubResource( 1 )
 [node name="number" type="Sprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 3 )
+
+[node name="spawn_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.0
 
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]

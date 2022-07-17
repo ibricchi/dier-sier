@@ -6,7 +6,6 @@ var time_since_last_attack = 0.0
 var max_shot_strength = 2e4
 
 onready var player = self.get_tree().get_root().get_node("main/player")
-signal boss_hurt
 func _ready():
 	
 	self.mass = 15
@@ -26,17 +25,18 @@ func _ready():
 	number_go_red()
 	
 func _physics_process(delta):
+	
 	time_since_last_attack += delta 
 	if is_aggressive: 
 		if time_since_last_attack > 2.0 : 
 			time_since_last_attack -= randf() + 1.0
-			
-			var dir = (player.position - self.position).normalized()
-			var angle = ((randf() * 0.3 - 0.15) * PI) 
-			 
-			var shot_dir = 0.1 * Vector2( cos(angle)  , sin(angle)) + 0.9*dir
-			self.apply_central_impulse( randf() * max_shot_strength * shot_dir )
-			
+			if state.damage != [3,3,3,3,3,3]:
+				var dir = (player.position - self.position).normalized()
+				var angle = ((randf() * 0.3 - 0.15) * PI) 
+				 
+				var shot_dir = 0.1 * Vector2( cos(angle)  , sin(angle)) + 0.9*dir
+				self.apply_central_impulse( randf() * max_shot_strength * shot_dir )
+				
 		if not $Tween.is_active():
 			number_go_red()
 func die():
@@ -72,7 +72,6 @@ func hurt(obj):
 	
 	self.get_tree().get_root().get_node("main").update_health_bar(health)
 	
-	emit_signal("boss_hurt")
 	
 	if(health <= 0):
 		die()
