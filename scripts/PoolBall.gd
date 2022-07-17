@@ -121,12 +121,6 @@ func _physics_process(delta):
 func _on_PoolBall_body_entered(body):
 	self.linear_velocity *= 0.95 # slow down a bit when colliding
 	
-	# code to stop "charging up" when hit 
-	#if not $Stopped_Timer.is_stopped():
-	#	self.linear_damp = 0.01
-	#	$Tween.stop(self)
-	#	self.modulate = Color(1,1,1)
-	#	$Stopped_Timer.stop()
 
 
 func _on_Stopped_Timer_timeout():
@@ -135,7 +129,7 @@ func _on_Stopped_Timer_timeout():
 	if self.health and player:
 	
 		var dir = (player.position - self.position).normalized()
-		var angle = ((randf() * 0.5 - 0.25) * PI) / self.health
+		var angle = ((randf() * 0.5 - 0.25) * PI) / self.health + sign(dir.y) *  acos(dir.x)
 		var strength =  randf() + 4 + self.health
 		var shot_dir = 0.3 * Vector2( cos(angle)  , sin(angle)) + 0.7*dir
 		self.apply_central_impulse( max_shot_strength*  strength * shot_dir )

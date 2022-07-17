@@ -35,7 +35,7 @@ func _physics_process(delta):
 			time_since_last_attack -= randf() + 1.0
 			if state.damage != [3,3,3,3,3,3]:
 				var dir = (player.position - self.position).normalized()
-				var angle = ((randf() * 0.3 - 0.15) * PI) 
+				var angle = ((randf() * 0.3 - 0.15) * PI) + sign(dir.y) *  acos(dir.x)
 				 
 				var shot_dir = 0.1 * Vector2( cos(angle)  , sin(angle)) + 0.9*dir
 				self.apply_central_impulse( randf() * max_shot_strength * shot_dir )

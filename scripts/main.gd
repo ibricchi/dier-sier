@@ -12,7 +12,7 @@ var wave_number = 0
 
 
 var boss1_wave_number = 5
-var boss2_wave_number = 0 
+var boss2_wave_number = 6
 
 export var wave_cooldown : int = 40 
 
