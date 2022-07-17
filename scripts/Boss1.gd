@@ -44,6 +44,7 @@ func _physics_process(delta):
 				number_go_red()
 				
 		if player and (self.position - player.position).length() > 2000 : 
+
 			self.die()
 		
 		

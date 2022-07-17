@@ -7,12 +7,13 @@ var boss1_res : Resource = preload("res://scenes/Boss1.tscn")
 var boss2_res : Resource = preload("res://scenes/Boss2.tscn")
 var boss_health_bar : Resource = preload("res://scenes/Boss_health.tscn")
 var boss_respawns = 1 
-
+ 
 var wave_number = 0
 
 
 var boss1_wave_number = 5
-var boss2_wave_number = 6
+var boss2_wave_number = 6 
+
 export var wave_cooldown : int = 40 
 
 func _ready():
@@ -117,10 +118,7 @@ func first_boss_battle():
 	
 	
 	
-	if boss_respawns :
-		boss_respawns -= 1
-	else:
-		state.wave += 1
+	
 	
 	
 	while not get_tree().get_nodes_in_group("balls").empty():
@@ -139,7 +137,16 @@ func first_boss_battle():
 	poolballsprite.velocity = 180 * init_dir
 	poolballsprite.start_spawn_anim()
 	
+ 
+	var boss_health:Node = boss_health_bar.instance()
 	
+	# boss_health.get_node("health_bar").value = poolballsprite.get("health")
+	#yield(get_tree().create_timer(2), "timeout")
+	add_child_below_node(get_node("tally_system"),boss_health)
+	# get_node("Boss1").connect("boss_hurt", get_node("main"), "update_health_bar")
+	
+	update_health_bar(100)
+ 
 	while not get_tree().get_nodes_in_group("balls").empty():
 		yield(get_tree().create_timer(5), "timeout")
 	
@@ -147,12 +154,20 @@ func first_boss_battle():
 	
 	while not get_tree().get_nodes_in_group("boss").empty():
 		yield(get_tree().create_timer(2), "timeout")
+		
+	if boss_respawns :
+		boss_respawns -= 1
+	else:
+		state.wave += 1
+		
 	$SpawnTimer.wait_time = 1	
 	$SpawnTimer.start()
 	
 	
 
 func second_boss_battle():
+	
+	
 	while not get_tree().get_nodes_in_group("balls").empty():
 		yield(get_tree().create_timer(0.5), "timeout")
 	
@@ -165,8 +180,14 @@ func second_boss_battle():
 	add_child(poolballsprite)
 	poolballsprite.set_health( 8 )
 	poolballsprite.position = spawn_point.position + $Spawns.position
-	poolballsprite.velocity = 40 * init_dir
+	poolballsprite.velocity = 90 * init_dir
 	poolballsprite.start_spawn_anim()
+	
+	# spawn health bar 
+	var boss_health:Node = boss_health_bar.instance() 
+	add_child_below_node(get_node("tally_system"),boss_health)
+	update_health_bar(100)
+	
 	while not get_tree().get_nodes_in_group("balls").empty():
 		yield(get_tree().create_timer(5), "timeout")
 		
@@ -174,6 +195,8 @@ func second_boss_battle():
 		yield(get_tree().create_timer(2), "timeout")
 	$SpawnTimer.wait_time = 1	
 	$SpawnTimer.start()
+	
+	state.wave += 1
 	
 	
 

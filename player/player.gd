@@ -169,6 +169,10 @@ func _on_collision(body):
 			var dir = (   self.position - body.position).normalized()
 			self.velocity = max(abs(  body.get_linear_velocity().dot(dir) ) , 30) * dir
 			dice_roll = state.roll_dice()
-
+ 
+			if body.is_in_group("balls") and body.is_bullet:
+				body.die()
+	 
+ 
 func _on_exp_body_entered(body):
 	pass # Replace with function body.
