@@ -7,10 +7,11 @@ var hits: Array = [0,0,0,0,0,0]
 var damage: Array = [0,0,0,0,0,0]
 var super: Array = [0,0,0,0,0,0]
 
+
 signal reload_overlay
 
 onready var rng = RandomNumberGenerator.new()
-
+onready var game_scene: PackedScene = load("res://main.tscn")
 func roll_dice():
 	var legal = []
 	for i in 6:

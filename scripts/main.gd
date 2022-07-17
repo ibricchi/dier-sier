@@ -68,3 +68,8 @@ func _process(delta):
 
 func _on_SpawnTimer_timeout():
 	spawn_wave()
+
+onready var death_popup:Node = load("res://UI/death_popup.tscn").instance()
+func _on_tally_system_game_over():
+	$"player".queue_free()
+	$".".add_child(death_popup)

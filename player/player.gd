@@ -15,6 +15,7 @@ func _ready():
 	self.set_collision_layer(1)
 	self.set_collision_mask(7)
 	self.add_to_group("player")
+	immobile = false
  
 func _on_lost_dice(dice_num):
 	dice_roll = state.roll_dice()
