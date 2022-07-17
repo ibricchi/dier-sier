@@ -7,6 +7,7 @@
 [ext_resource path="res://UI/tally.tscn" type="PackedScene" id=6]
 [ext_resource path="res://scripts/main.gd" type="Script" id=7]
 [ext_resource path="res://assets/music/fx/death.wav" type="AudioStream" id=8]
+[ext_resource path="res://volume/volume.tscn" type="PackedScene" id=9]
 
 [sub_resource type="ConvexPolygonShape2D" id=9]
 points = PoolVector2Array( 0, 12, 4, 12, 12, 24, 52, 24, 60, 12, 64, 12, 64, 64, 0, 64 )
@@ -265,9 +266,16 @@ wait_time = 5.0
 one_shot = true
 
 [node name="AudioStreamPlayer" parent="." instance=ExtResource( 3 )]
+pause_mode = 2
+volume_db = -5.0
 
 [node name="death_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 4
+
+[node name="settings" parent="CanvasLayer" instance=ExtResource( 9 )]
 
 [connection signal="ready_to_use" from="Node2D" to="player" method="_on_dash_bar_ready_to_use"]
 [connection signal="game_over" from="tally_system" to="." method="_on_tally_system_game_over"]
@@ -275,3 +283,4 @@ stream = ExtResource( 8 )
 [connection signal="gave_damage" from="player" to="tally_system" method="_on_player_gave_damage"]
 [connection signal="take_damage" from="player" to="tally_system" method="_on_player_take_damage"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+[connection signal="change_volume" from="CanvasLayer/settings" to="AudioStreamPlayer" method="_on_settings_change_volume"]
