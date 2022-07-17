@@ -49,7 +49,8 @@ func hurt(player):
 	$Hurt_particles.direction = Vector2.RIGHT.rotated(player.velocity.angle() - rotation);
 	$Hurt_particles.color = $Poolball.modulate
 	$Hurt_particles.emitting = true
-	if (state.super[player.prev_dice_roll - 1] > 1 && player.prev_dice_roll == self.health):
+
+	if (state.super[player.prev_dice_roll - 1] > 1 or (state.super[player.prev_dice_roll - 1] == 1 && player.prev_dice_roll == self.health)):
 		health = 0
 	else:
 		health -= 1

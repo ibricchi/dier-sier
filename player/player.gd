@@ -147,8 +147,8 @@ func _on_collision(body):
 	if (body.is_in_group("balls") or body.is_in_group("boss")) and not immobile:
 		if(dashing):
 			# handle giving dammage from UI
-			if(body.health == dice_roll):
-				emit_signal("gave_damage", dice_roll)
+			if(body.health == prev_dice_roll):
+				emit_signal("gave_damage", prev_dice_roll)
 			body.hurt(self)
 		else:
 			emit_signal("take_damage", dice_roll)

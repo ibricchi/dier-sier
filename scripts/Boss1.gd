@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-var health : int = 100
+export var health : int = 100
 var is_aggressive = true
 var time_since_last_attack = 0.0
 var max_shot_strength = 2e4
@@ -64,7 +64,6 @@ func hurt(obj):
 	$Hurt_particles.direction = Vector2.RIGHT.rotated(player.velocity.angle() - rotation);
 	$Hurt_particles.color = $Poolball.modulate
 	$Hurt_particles.emitting = true
-	
 	
 	if(health <= 0):
 		die()

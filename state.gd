@@ -11,6 +11,7 @@ signal dice_rolled(num_rolled)
 onready var rng = RandomNumberGenerator.new()
 onready var game_scene: PackedScene = load("res://main.tscn")
 func roll_dice():
+	rng.randomize()
 	var legal = []
 	for i in 6:
 		if damage[i] < 3:
