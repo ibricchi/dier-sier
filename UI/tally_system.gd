@@ -9,7 +9,11 @@ func _on_player_gave_damage(dice_num):
 	state.super[dice_num-1] = state.hits[dice_num-1] / 3
 	get_child(dice_num-1).update_gui(state.hits[dice_num-1], state.damage[dice_num-1], state.super[dice_num -1])
 
+func _ready():
+	state.connect("dice_rolled", self, "_on_dice_roll")
 
+func _on_dice_roll(dice_num):
+	$dice_frame/dice_num.texture = load("res://assets/dice_" + str(dice_num) + ".png")
 
 func _unhandled_input(event):
 	if(event.is_action_pressed("ui_accept")):
