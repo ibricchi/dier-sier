@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://UI/title_screen.gd" type="Script" id=1]
 [ext_resource path="res://assets/title.png" type="Texture" id=2]
@@ -9,8 +9,14 @@
 [ext_resource path="res://assets/music/AudioStreamPlayer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://volume/volume.tscn" type="PackedScene" id=8]
 
-[sub_resource type="Animation" id=1]
-resource_name = "play_bounce"
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/fonts/koulen/font.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+font_data = SubResource( 1 )
+
+[sub_resource type="Animation" id=3]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -57,6 +63,31 @@ text = "Dier Sier"
 align = 1
 valign = 1
 
+[node name="Label3" type="Label" parent="."]
+margin_left = 668.0
+margin_top = 406.0
+margin_right = 1026.0
+margin_bottom = 451.0
+size_flags_vertical = 6
+custom_colors/font_color = Color( 0.196078, 0.0745098, 0.0745098, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Credits: Vincent, IBricchi, TheVampster"
+align = 1
+valign = 1
+
+[node name="Label4" type="Label" parent="."]
+margin_left = -2.99999
+margin_top = 141.0
+margin_right = 263.0
+margin_bottom = 186.0
+rect_rotation = 28.0013
+size_flags_vertical = 6
+custom_colors/font_color = Color( 0.329412, 0.164706, 0.164706, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "GMTK GAME JAM"
+align = 1
+valign = 1
+
 [node name="TextureRect" type="TextureRect" parent="."]
 margin_left = 470.0
 margin_top = 398.0
@@ -77,7 +108,7 @@ flat = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TextureRect"]
 playback_speed = 2.86
-anims/play_bounce = SubResource( 1 )
+anims/play_bounce = SubResource( 3 )
 script = ExtResource( 6 )
 
 [node name="AudioStreamPlayer" parent="." instance=ExtResource( 7 )]
@@ -85,6 +116,7 @@ pause_mode = 2
 volume_db = -5.0
 
 [node name="settings" parent="." instance=ExtResource( 8 )]
+visible = false
 
 [connection signal="pressed" from="TextureRect/Button" to="." method="_on_play_button"]
 [connection signal="change_volume" from="settings" to="AudioStreamPlayer" method="_on_settings_change_volume"]
