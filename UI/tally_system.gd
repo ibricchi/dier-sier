@@ -8,6 +8,8 @@ func _on_player_gave_damage(dice_num):
 		state.hits[dice_num - 1] += 1
 	state.super[dice_num-1] = state.hits[dice_num-1] / 3
 	get_child(dice_num-1).update_gui(state.hits[dice_num-1], state.damage[dice_num-1], state.super[dice_num -1])
+	var player = get_tree().get_root().get_node("main/player")
+	dice_num = player.prev_dice_num
 	var super = state.super[dice_num - 1]
 	if super == 0:
 		$dice_frame.texture = load("res://assets/dice_normal.png")
@@ -20,13 +22,6 @@ func _ready():
 	state.connect("dice_rolled", self, "_on_dice_roll")
 
 func _on_dice_roll(dice_num):
-	var super = state.super[dice_num - 1]
-	if super == 0:
-		$dice_frame.texture = load("res://assets/dice_normal.png")
-	elif super == 1:
-		$dice_frame.texture = load("res://assets/dice_super1.png")
-	elif super == 2:
-		$dice_frame.texture = load("res://assets/dice_super2.png")
 	$dice_frame/dice_num.texture = load("res://assets/dice_" + str(dice_num) + ".png")
 
 func check_exit():	

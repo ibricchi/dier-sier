@@ -72,6 +72,7 @@ func hurt(player):
 		health = 0
 	else:
 		health -= 1
+	
 	if(health <= 0):
 		die()
 	else:
