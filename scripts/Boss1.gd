@@ -55,7 +55,7 @@ func die():
 	queue_free()
 	
 		
-func hurt():
+func hurt(obj):
 	health -= 5	
 	if(health <= 0):
 		die()

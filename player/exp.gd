@@ -21,8 +21,8 @@ func _on_collision(body):
 		#print("Body Valid")
 		#print(remaining_time)
 		if remaining_time > 0:
-			print("Time Valid")
+			#print("Time Valid")
 			body.die()
 	if body.is_in_group("boss"):
 		body.health -= 10 
-		body.hurt()
+		body.hurt(self)

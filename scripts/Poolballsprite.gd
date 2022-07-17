@@ -56,7 +56,7 @@ func _on_Tween_tween_completed(object, key):
 		queue_free()
 	else : 
 		var speed = velocity.length()
-		$Tween.interpolate_property(self, "scale", (1 + int(is_boss1)) * max_size, 1.5 * Vector2.ONE,   0.6, Tween.TRANS_CUBIC, Tween.EASE_IN)
+		$Tween.interpolate_property(self, "scale", (1 + int(is_boss1)) * max_size, (1 + 0.5*int(is_boss1))* Vector2.ONE,   0.6, Tween.TRANS_CUBIC, Tween.EASE_IN)
 		$Tween.start()
 	
 	
