@@ -31,7 +31,8 @@ func set_health(hp):
 func die():
 	# handle death animation here
 	$Bullet_Particles.emitting = false
-	state.add_points(1)
+	if not is_bullet:
+		state.add_points(1)
 	$number.hide()
 	$Poolball.hide()
 	var player = get_tree().get_root().get_node("main/player")
@@ -112,6 +113,10 @@ func _physics_process(delta):
 				
 		if player and (self.position - player.position).length() > 2000: 
 			self.die()
+			
+		#if self.is_bullet : 
+			#$Bullet_Particles.amount = int(self.linear_velocity.length() / 20 ) 
+			#$Bullet_Particles.direction = - self.linear_velocity.normalized()
 	
 func _on_PoolBall_body_entered(body):
 	self.linear_velocity *= 0.95 # slow down a bit when colliding

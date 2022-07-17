@@ -89,21 +89,18 @@ scale_amount = 0.4
 color_ramp = ExtResource( 6 )
 
 [node name="Bullet_Particles" type="CPUParticles2D" parent="."]
-position = Vector2( -31, 0 )
 emitting = false
 amount = 20
-lifetime = 0.1
+lifetime = 0.8
 explosiveness = 0.1
 lifetime_randomness = 0.8
 local_coords = false
 texture = ExtResource( 7 )
-emission_shape = 1
-emission_sphere_radius = 15.0
 gravity = Vector2( 0, 0 )
 orbit_velocity_random = 0.5
 radial_accel = 1.0
 angle = 90.0
-scale_amount = 0.2
+scale_amount = 0.3
 scale_amount_random = 0.6
 
 [connection signal="body_entered" from="." to="." method="_on_PoolBall_body_entered"]
