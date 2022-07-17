@@ -15,16 +15,14 @@ func _ready():
 func _on_dice_roll(dice_num):
 	$dice_frame/dice_num.texture = load("res://assets/dice_" + str(dice_num) + ".png")
 
-func check_exit():
-	state.stop_timer()
-	emit_signal("game_over")
-	
-	pass
-#	var legal = []
-#	for i in 6:
-#		if state.damage[i] < 3:
-#			legal.push_back(i + 1)
-#	if len(legal) == 0:
+func check_exit():	
+	var legal = []
+	for i in 6:
+		if state.damage[i] < 3:
+			legal.push_back(i + 1)
+	if len(legal) == 0:
+		state.stop_timer()
+		emit_signal("game_over")
 		
 
 signal lost_dice(dice_num)
