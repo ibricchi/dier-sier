@@ -45,7 +45,7 @@ func die():
 func hurt(player):
 	# handle hurt animation here
 	$Hurt_particles.amount = 20 + 5 * self.health
-	$Hurt_particles.direction = player.velocity.normalized()
+	$Hurt_particles.direction = Vector2.RIGHT.rotated(player.velocity.angle() - rotation);
 	$Hurt_particles.color = $Poolball.modulate
 	$Hurt_particles.emitting = true
 	if (state.super[player.prev_dice_roll - 1] > 1 && player.prev_dice_roll == self.health):
