@@ -27,6 +27,7 @@ func _process(delta):
 func start_spawn_anim():
 	scale = Vector2(0,0)
 	var speed = velocity.length()
+	$"spawn_sound".play()
 	$Tween.interpolate_property(self, "scale", Vector2.ZERO, (1 + int(is_boss1) + 1.5 *int(is_boss2)) * max_size , 1.0, Tween.TRANS_CUBIC, Tween.EASE_OUT)
 	$Tween.start()
  

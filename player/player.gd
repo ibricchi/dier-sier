@@ -150,17 +150,29 @@ func _on_collision(body):
 			if(body.health == prev_dice_roll):
 				emit_signal("gave_damage", prev_dice_roll)
 			body.hurt(self)
+			
+			var r:int = state.rng.randi_range(1,3)
+			
+			if r == 1:
+				$"hitA".play()
+			elif r == 2:
+				$"hitD".play()
+			elif r == 3:
+				$"hitE".play()
+			
 		else:
 			emit_signal("take_damage", dice_roll)
 			# handle taking damage from UI
+			
+			$"damage".play()
 			immobile = true
 			var dir = (   self.position - body.position).normalized()
 			self.velocity = max(abs(  body.get_linear_velocity().dot(dir) ) , 30) * dir
 			dice_roll = state.roll_dice()
-			
+ 
 			if body.is_in_group("balls") and body.is_bullet:
 				body.die()
 	 
-
+ 
 func _on_exp_body_entered(body):
 	pass # Replace with function body.
