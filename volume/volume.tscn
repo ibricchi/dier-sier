@@ -1,6 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://volume/volume.gd" type="Script" id=1]
+[ext_resource path="res://UI/Restart.gd" type="Script" id=2]
+[ext_resource path="res://UI/Exit.gd" type="Script" id=3]
+[ext_resource path="res://assets/play_button.png" type="Texture" id=4]
+[ext_resource path="res://UI/new_dynamicfont.tres" type="DynamicFont" id=5]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://assets/fonts/koulen/font.ttf"
@@ -12,6 +16,18 @@ font_data = SubResource( 1 )
 [sub_resource type="DynamicFont" id=2]
 size = 25
 font_data = SubResource( 1 )
+
+[sub_resource type="StyleBoxTexture" id=4]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 60, 26 )
+
+[sub_resource type="StyleBoxTexture" id=5]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 60, 26 )
+
+[sub_resource type="StyleBoxTexture" id=6]
+texture = ExtResource( 4 )
+region_rect = Rect2( 0, 0, 60, 26 )
 
 [node name="settings" type="Control"]
 pause_mode = 2
@@ -94,4 +110,30 @@ margin_right = 688.0
 margin_bottom = 30.0
 max_value = 20.0
 
+[node name="Restart" type="Button" parent="."]
+margin_left = 277.0
+margin_top = 355.0
+margin_right = 497.0
+margin_bottom = 417.0
+custom_fonts/font = ExtResource( 5 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
+text = "RESTART"
+script = ExtResource( 2 )
+
+[node name="Exit" type="Button" parent="."]
+margin_left = 594.0
+margin_top = 356.0
+margin_right = 814.0
+margin_bottom = 418.0
+custom_fonts/font = ExtResource( 5 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
+text = "Exit"
+script = ExtResource( 3 )
+
 [connection signal="value_changed" from="MarginContainer/Panel/MarginContainer/VBoxContainer/MarginContainer2/MarginContainer/HSlider" to="." method="_on_volume_change"]
+[connection signal="button_down" from="Restart" to="Restart" method="_on_Restart_button_down"]
+[connection signal="button_down" from="Exit" to="Exit" method="_on_Exit_button_down"]

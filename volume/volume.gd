@@ -11,8 +11,16 @@ func _ready():
 func _unhandled_input(event):
 	if(event.is_action_pressed("ui_cancel")):
 		visible = !visible
+		$Restart.visible = visible and state.timer_running
+		$Exit.visible = visible and state.timer_running
 		get_tree().paused = !get_tree().paused
 
 signal change_volume(value)
 func _on_volume_change(value):
+	state.volume = linear2db(value)
 	emit_signal("change_volume", value)
+
+signal change_sfx_volume(value)
+func _on_sfx_change(value):
+	state.sfx_volume = linear2db(value)
+	emit_signal("change_sfx_volume", value)
