@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 var health: int =  1; 
+var is_bullet = false
 export var max_shot_strength = 1e3
 
 onready var player = self.get_tree().get_root().get_node("main/player")
@@ -29,6 +30,7 @@ func set_health(hp):
 
 func die():
 	# handle death animation here
+	$Bullet_Particles.emitting = false
 	state.add_points(1)
 	$number.hide()
 	$Poolball.hide()
@@ -108,8 +110,9 @@ func _physics_process(delta):
 			$Tween.start()
 			
 			
-	if player and (self.position - player.position).length() > 2000 : 
-		self.die()
+	if player: 
+		if self and (self.position - player.position).length() > 2000 : 
+			self.die()
 	
 func _on_PoolBall_body_entered(body):
 	self.linear_velocity *= 0.95 # slow down a bit when colliding
@@ -126,12 +129,12 @@ func _on_Stopped_Timer_timeout():
 	self.linear_damp = 0.3
 	
 	if self.health:
-		for player in get_tree().get_nodes_in_group("player"):
-			var dir = (player.position - self.position).normalized()
-			var angle = ((randf() * 0.5 - 0.25) * PI) / self.health
-			var strength =  randf() + 4 + self.health
-			var shot_dir = 0.3 * Vector2( cos(angle)  , sin(angle)) + 0.7*dir
-			self.apply_central_impulse( max_shot_strength*  strength * shot_dir )
+	
+		var dir = (player.position - self.position).normalized()
+		var angle = ((randf() * 0.5 - 0.25) * PI) / self.health
+		var strength =  randf() + 4 + self.health
+		var shot_dir = 0.3 * Vector2( cos(angle)  , sin(angle)) + 0.7*dir
+		self.apply_central_impulse( max_shot_strength*  strength * shot_dir )
 	
 	$Tween.stop($number)
 	update_color()

@@ -43,8 +43,9 @@ func _physics_process(delta):
 		if not $Tween.is_active():
 			number_go_red()
 			
-	if player and (self.position - player.position).length() > 2000 : 
-		self.die()
+	if player: 
+		if self and (self.position - player.position).length() > 2000 : 
+			self.die()
 		
 		
 func die():

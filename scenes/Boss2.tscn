@@ -23,19 +23,19 @@ _data = [ Vector2( 0.00980392, -16.4545 ), 0.0, 43.6364, 0, 0, Vector2( 0.970588
 script = ExtResource( 6 )
 
 [node name="Poolball" type="Sprite" parent="."]
-scale = Vector2( 1.2, 1.2 )
+scale = Vector2( 1.44, 1.44 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2( 1.2, 1.2 )
+scale = Vector2( 1.44, 1.44 )
 shape = SubResource( 1 )
 
-[node name="Firing Timer" type="Timer" parent="."]
+[node name="Firing_Timer" type="Timer" parent="."]
 wait_time = 12.0
 one_shot = true
 
 [node name="number" type="Sprite" parent="."]
-scale = Vector2( 0.75, 0.75 )
+scale = Vector2( 0.9, 0.9 )
 texture = ExtResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
@@ -87,4 +87,4 @@ angle_random = 1.0
 scale_amount = 0.4
 color_ramp = ExtResource( 3 )
 
-[connection signal="timeout" from="Firing Timer" to="." method="_on_Firing_Timer_timeout"]
+[connection signal="timeout" from="Firing_Timer" to="." method="_on_Firing_Timer_timeout"]
