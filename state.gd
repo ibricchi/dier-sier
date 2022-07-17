@@ -10,6 +10,8 @@ var time: float = 0
 var volume: float = -5
 var sfx_volume: float = -5
 
+var win: bool = false
+
 func add_points(amm):
 	points += amm
 

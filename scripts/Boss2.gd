@@ -51,10 +51,10 @@ func _physics_process(delta):
 			
 		
 func die():
-	
 	# handle death animation here
 	$number.hide()
 	$Poolball.hide()
+	state.win = true
 	
 	var player = get_tree().get_root().get_node("main/player")
 	$Death_particles.direction = Vector2.RIGHT.rotated(player.velocity.angle() - rotation)
