@@ -40,7 +40,7 @@ func _physics_process(delta):
 			time_since_last_bump -= 1.0 + 0.5 * randf()
 			
 			var dir = ( self.position - player.position).normalized()
-			var angle = ((randf() * 1.2 - 0.6) * PI) 
+			var angle = ((randf() * 1.2 - 0.6) * PI) + sign(dir.y) *  acos(dir.x)
 			 
 			var shot_dir = 0.7 * Vector2( cos(angle)  , sin(angle)) + 0.3*dir
 			self.apply_central_impulse( (0.5 + 0.5 * randf()) * max_shot_strength * shot_dir )
@@ -96,32 +96,70 @@ func number_go_red(time):
 	$Tween.start()
  
 	
-
+var regular_fire = 0
 
 func _on_Firing_Timer_timeout():
 	$number.modulate = Color(1,1,1)
+	
+		
 	var to_player = (  player.position- self.position )
 	var dir = to_player.normalized()
-	var bullet = poolball_res.instance()
 	
-	self.get_tree().get_root().get_node("main").add_child(bullet)
-	
-	bullet.set_health(randi() % 6 + 1)
-	bullet.is_bullet = true
-	bullet.get_node("Bullet_Particles").emitting = true
-	
-	# scale size
-	var scaling = 0.75
-	bullet.get_node("Poolball").scale *= scaling
-	bullet.get_node("CollisionShape2D").scale *= scaling
-	bullet.get_node("number").scale *= scaling
-	
-	bullet.linear_damp = 0.01
-	bullet.set_linear_velocity( 300 * dir)
-	bullet.position = self.position + 50 * dir
+	regular_fire += 1
+	var bullet_array = []
+	if regular_fire == 5:
+		regular_fire -= 5
+		
+		for i in range(3):
+			var bullet = poolball_res.instance()
+			
+			self.get_tree().get_root().get_node("main").add_child(bullet)
+			
+			bullet.set_health(randi() % 6 + 1)
+			bullet.is_bullet = true
+			bullet.get_node("Bullet_Particles").emitting = true
+			
+			# scale size
+			var scaling = 0.6  
+			bullet.get_node("Poolball").scale *= scaling
+			bullet.get_node("CollisionShape2D").scale *= scaling
+			bullet.get_node("number").scale *= scaling
+			
+			var angle = (0.05* PI) + sign(dir.y) *  acos(dir.x)
+			
+			
+			 
+			var shot_dir = 0.7 * Vector2( cos(angle)  , sin(angle)) + 0.3*dir
+			
+			bullet.linear_damp = 0.01
+			bullet.set_linear_velocity( 300 * dir)
+			bullet.position = self.position + 60 * shot_dir
+			bullet_array.append(bullet)
+		
+	else:
+		
+		var bullet = poolball_res.instance()
+		
+		self.get_tree().get_root().get_node("main").add_child(bullet)
+		
+		bullet.set_health(randi() % 6 + 1)
+		bullet.is_bullet = true
+		bullet.get_node("Bullet_Particles").emitting = true
+		
+		# scale size
+		var scaling = 0.70 + randf() * 0.2
+		bullet.get_node("Poolball").scale *= scaling
+		bullet.get_node("CollisionShape2D").scale *= scaling
+		bullet.get_node("number").scale *= scaling
+		
+		bullet.linear_damp = 0.01
+		bullet.set_linear_velocity( 300 * dir)
+		bullet.position = self.position + 50 * dir
+		bullet_array.append(bullet)
 	
 	$Firing_Timer.wait_time = randi() % 3 + 1
 	number_go_red($Firing_Timer.wait_time)
 	$Firing_Timer.start()
 	yield(get_tree().create_timer(to_player.length() / 200) , "timeout")
-	bullet.die()
+	for bullet in bullet_array:
+		bullet.die()
