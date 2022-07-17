@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://UI/Restart.gd" type="Script" id=1]
 [ext_resource path="res://assets/play_button.png" type="Texture" id=2]
 [ext_resource path="res://UI/new_dynamicfont.tres" type="DynamicFont" id=3]
 [ext_resource path="res://UI/Exit.gd" type="Script" id=4]
+[ext_resource path="res://UI/death_popup.gd" type="Script" id=5]
 
 [sub_resource type="StyleBoxTexture" id=6]
 texture = ExtResource( 2 )
@@ -26,9 +27,10 @@ outline_size = 4
 outline_color = Color( 0.0156863, 0.482353, 0.764706, 1 )
 font_data = SubResource( 1 )
 
-[node name="death_popup" type="Control"]
+[node name="win_popup" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 5 )
 
 [node name="Restart" type="Button" parent="."]
 margin_left = 442.0
