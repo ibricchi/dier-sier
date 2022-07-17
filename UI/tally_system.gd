@@ -4,9 +4,10 @@ signal game_over
 signal attack_bonus(super_boost, dice_num)
 
 func _on_player_gave_damage(dice_num):
-	if state.hits[dice_num - 1] != 10:
+	if state.hits[dice_num - 1] != 6:
 		state.hits[dice_num - 1] += 1
-		get_child(dice_num-1).update_gui(state.hits[dice_num-1], state.damage[dice_num-1], state.super[dice_num -1])
+	state.super[dice_num-1] = state.hits[dice_num-1] / 3
+	get_child(dice_num-1).update_gui(state.hits[dice_num-1], state.damage[dice_num-1], state.super[dice_num -1])
 
 onready var death_screen: PackedScene = load("res://UI/title_screen.tscn")
 func check_exit():

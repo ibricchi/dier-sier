@@ -42,14 +42,16 @@ func die():
 	
 	queue_free()
 
-func hurt():
+func hurt(player):
 	# handle hurt animation here
-	for player in get_tree().get_nodes_in_group("player"):
-		$Hurt_particles.amount = 20 + 5 * self.health
-		$Hurt_particles.direction = player.velocity.normalized()
-		$Hurt_particles.color = $Poolball.modulate
-		$Hurt_particles.emitting = true
-	health -= state.current_attack_power
+	$Hurt_particles.amount = 20 + 5 * self.health
+	$Hurt_particles.direction = player.velocity.normalized()
+	$Hurt_particles.color = $Poolball.modulate
+	$Hurt_particles.emitting = true
+	if (state.super[player.prev_dice_roll - 1] > 1 && player.prev_dice_roll == self.health):
+		health = 0
+	else:
+		health -= 1
 	if(health <= 0):
 		die()
 	else:

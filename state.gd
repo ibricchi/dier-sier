@@ -1,8 +1,5 @@
 extends Node
 
-
-var current_attack_power: int = 1
-
 var hits: Array = [0,0,0,0,0,0]
 var damage: Array = [0,0,0,0,0,0]
 var super: Array = [0,0,0,0,0,0]
