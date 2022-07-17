@@ -23,7 +23,7 @@ onready var game_scene: PackedScene = load("res://main.tscn")
 func roll_dice():
 	rng.randomize()
 	var legal = []
-	for i in 6:
+	for i in 2:
 		if damage[i] < 3:
 			legal.push_back(i + 1)
 	if len(legal) == 0:

@@ -19,8 +19,3 @@ signal change_volume(value)
 func _on_volume_change(value):
 	state.volume = linear2db(value)
 	emit_signal("change_volume", value)
-
-signal change_sfx_volume(value)
-func _on_sfx_change(value):
-	state.sfx_volume = linear2db(value)
-	emit_signal("change_sfx_volume", value)
