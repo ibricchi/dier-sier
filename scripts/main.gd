@@ -4,27 +4,32 @@ extends Node2D
 var poolballsprite_res : Resource = preload("res://scenes/Poolballsprite.tscn") 
 var poolball_res  : Resource = preload("res://scenes/PoolBall.tscn") 
 var boss1_res : Resource = preload("res://scenes/Boss1.tscn")
+var boss2_res : Resource = preload("res://scenes/Boss2.tscn")
 var boss_health_bar : Resource = preload("res://scenes/Boss_health.tscn")
 var boss_respawns = 1 
+
 var wave_number = 0
+
+
 var boss1_wave_number = 5
-var boss2_wave_number = 8
+var boss2_wave_number = 6
 export var wave_cooldown : int = 40 
 
 func _ready():
 	randomize()
+	state.start_timer(true)
 	$SpawnTimer.wait_time = wave_cooldown
 	$SpawnTimer.start()
 
 func spawn_wave( ): 
 	# maybe have a UI thing indicating the wave number 
 	
-	wave_number += 1 
+	state.wave += 1 
 	wave_cooldown += 4
 	$SpawnTimer.wait_time = wave_cooldown
 	var spawns = $Spawns.get_children() 
 	spawns.shuffle()
-	var spawn_num : int = min( int( randf() * wave_number) + 2, 6)
+	var spawn_num : int = min( int( randf() * state.wave) + 2, 6)
 		
 	for i in range( spawn_num ) :
 		var spawn_point = spawns[i]
@@ -32,7 +37,7 @@ func spawn_wave( ):
 		
 		var poolballsprite = poolballsprite_res.instance()
 		add_child(poolballsprite)
-		poolballsprite.set_health( 1 + (randi() % wave_number)/ 3 )
+		poolballsprite.set_health( 1 + (randi() % state.wave)/ 3 )
 		poolballsprite.position = spawn_point.position + $Spawns.position
 		poolballsprite.velocity = (1 + randf()) * 80 * init_dir
 		poolballsprite.start_spawn_anim()
@@ -44,7 +49,7 @@ func spawn_wave( ):
 	
 	var poolballsprite = poolballsprite_res.instance()
 	add_child(poolballsprite)
-	poolballsprite.set_health( min(wave_number , 6))
+	poolballsprite.set_health( min(state.wave , 6))
 	poolballsprite.position = spawn_point.position + $Spawns.position
 	poolballsprite.velocity = (1 + randf()) * 100 * init_dir
 	poolballsprite.start_spawn_anim()
@@ -58,7 +63,8 @@ func spawn_rigid_poolball( pos , vel, hp) :
 	var poolball : Node
 	if hp == 7 :
 		poolball = boss1_res.instance()
-		
+	elif hp == 8 :
+		poolball = boss2_res.instance()
 	else:
 		poolball  = poolball_res.instance()
 		poolball.set_health(hp)
@@ -82,15 +88,15 @@ func _process(delta):
 
 func _on_SpawnTimer_timeout():
  
-	if wave_number == boss1_wave_number:
+	if state.wave == boss1_wave_number:
 		first_boss_battle()
-	elif wave_number == boss2_wave_number:
+	elif state.wave == boss2_wave_number:
 		second_boss_battle()
 	else:
 		spawn_wave()
 
 func update_health_bar(hp):
-	
+
 	
 	if get_node("boss_health"):
 		get_node("boss_health").get_child(0).value = hp
@@ -108,7 +114,7 @@ func first_boss_battle():
 	if boss_respawns :
 		boss_respawns -= 1
 	else:
-		wave_number += 1
+		state.wave += 1
 	
 	
 	while not get_tree().get_nodes_in_group("balls").empty():
@@ -126,11 +132,6 @@ func first_boss_battle():
 	poolballsprite.position = spawn_point.position + $Spawns.position
 	poolballsprite.velocity = 180 * init_dir
 	poolballsprite.start_spawn_anim()
-	
-	
-	
-	
-	
 	
 	
 	while not get_tree().get_nodes_in_group("balls").empty():

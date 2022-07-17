@@ -24,6 +24,9 @@ func _ready():
 	$Stopped_Timer.start()
 	number_go_red()
 	
+	
+	
+	
 func _physics_process(delta):
 	
 	time_since_last_attack += delta 
@@ -39,6 +42,11 @@ func _physics_process(delta):
 				
 		if not $Tween.is_active():
 			number_go_red()
+			
+	if player and (self.position - player.position).length() > 2000 : 
+		self.die()
+		
+		
 func die():
 	# handle death animation here
 	$number.hide()

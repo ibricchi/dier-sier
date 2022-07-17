@@ -3,7 +3,12 @@ extends Node
 var hits: Array = [0,0,0,0,0,0]
 var damage: Array = [0,0,0,0,0,0]
 var super: Array = [0,0,0,0,0,0]
+var points: int = 0
+var wave: int = 0
+var time: float = 0
 
+func add_points(amm):
+	points += amm
 
 signal reload_overlay
 signal dice_rolled(num_rolled)
@@ -21,3 +26,16 @@ func roll_dice():
 	var ret = legal[rng.randi() % len(legal)]
 	emit_signal("dice_rolled", ret)
 	return ret
+
+func _process(delta):
+	if (timer_running):
+		time += delta
+
+var timer_running: bool = false
+func start_timer(reset: bool):
+	if (reset):
+		time = 0
+	timer_running = true
+
+func stop_timer():
+	timer_running = false
