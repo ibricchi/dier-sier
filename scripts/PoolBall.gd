@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 var health: int =  1; 
+var previous_health : int = 1 ;
 var is_bullet = false
 export var max_shot_strength = 1e3
 
@@ -36,7 +37,7 @@ func die():
 
 	$Bullet_Particles.emitting = false
 	if not is_bullet:
-		state.add_points(1)
+		state.add_points(self.previous_health)
 	$number.hide()
 	$Poolball.hide()
 	var player = get_tree().get_root().get_node("main/player")
@@ -55,6 +56,7 @@ func die():
 	queue_free()
 
 func hurt(player):
+	previous_health = self.health
 	# handle hurt animation here
 	$Hurt_particles.amount = 20 + 5 * self.health
 	$Hurt_particles.direction = Vector2.RIGHT.rotated(player.velocity.angle() - rotation);
@@ -104,10 +106,10 @@ func _physics_process(delta):
 	if $Stopped_Timer.is_stopped():
 		if self.linear_velocity.length_squared() < 3500:
 			self.linear_damp = 0.5
-		if self.linear_velocity.length_squared() < 2000:
+		if self.linear_velocity.length_squared() < 2500:
 			self.linear_damp = 2
-		if self.linear_velocity.length_squared() < 1200 : 
-			self.linear_damp = 4
+		if self.linear_velocity.length_squared() < 1500 : 
+			self.linear_damp = 1
 			
 			$Stopped_Timer.wait_time = randf()  + 1.5
 			$Stopped_Timer.start()
