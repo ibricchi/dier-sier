@@ -31,7 +31,7 @@ func spawn_wave( ):
 	$SpawnTimer.wait_time = wave_cooldown
 	var spawns = $Spawns.get_children() 
 	spawns.shuffle()
-	var spawn_num : int = min( int( randf() * state.wave) + 2, 6)
+	var spawn_num : int = min( int( randf() * state.wave) + 1, 6)
 		
 	for i in range( spawn_num ) :
 		var spawn_point = spawns[i]
@@ -39,7 +39,7 @@ func spawn_wave( ):
 		
 		var poolballsprite = poolballsprite_res.instance()
 		add_child(poolballsprite)
-		poolballsprite.set_health( 1 + (randi() % state.wave)/ 3 )
+		poolballsprite.set_health( 1 + (randi() % state.wave)/ 2 )
 		poolballsprite.position = spawn_point.position + $Spawns.position
 		poolballsprite.velocity = (1 + randf()) * 80 * init_dir
 		poolballsprite.start_spawn_anim()
@@ -111,11 +111,6 @@ func update_health_bar(hp):
 		add_child_below_node(get_node("tally_system"),boss_health)
 
 func first_boss_battle():
-	
-	
-	
-	
-	
 	
 	while not get_tree().get_nodes_in_group("balls").empty():
 		yield(get_tree().create_timer(0.5), "timeout")
