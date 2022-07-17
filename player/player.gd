@@ -147,15 +147,16 @@ func _on_collision(body):
 	if (body.is_in_group("balls") or body.is_in_group("boss")) and not immobile:
 		if(dashing):
 			# handle giving dammage from UI
-			if(body.health == prev_dice_roll):
-				emit_signal("gave_damage", prev_dice_roll)
+			if(body.health == dice_roll):
+				emit_signal("gave_damage", dice_roll)
 			body.hurt(self)
 		else:
-			emit_signal("take_damage", prev_dice_roll)
+			emit_signal("take_damage", dice_roll)
 			# handle taking damage from UI
 			immobile = true
 			var dir = (   self.position - body.position).normalized()
-			self.velocity = max(abs(  body.get_linear_velocity().dot(dir) ) , 30) * dir 
+			self.velocity = max(abs(  body.get_linear_velocity().dot(dir) ) , 30) * dir
+			dice_roll = state.roll_dice()
 	 
 
 func _on_exp_body_entered(body):
