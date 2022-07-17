@@ -27,6 +27,7 @@ func set_health(hp):
 
 func die():
 	# handle death animation here
+	state.add_points(1)
 	$number.hide()
 	$Poolball.hide()
 	var player = get_tree().get_root().get_node("main/player")

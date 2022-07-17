@@ -26,6 +26,7 @@ func check_exit():
 		if state.damage[i] < 3:
 			legal.push_back(i + 1)
 	if len(legal) == 0:
+		state.stop_timer()
 		emit_signal("game_over")
 		
 
