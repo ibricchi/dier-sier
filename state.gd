@@ -4,11 +4,13 @@ var hits: Array = [0,0,0,0,0,0]
 var damage: Array = [0,0,0,0,0,0]
 var super: Array = [0,0,0,0,0,0]
 var points: int = 0
-var wave: int = 0
+var wave: int = 6
 var time: float = 0
 
 var volume: float = -5
 var sfx_volume: float = -5
+
+var win: bool = false
 
 func add_points(amm):
 	points += amm

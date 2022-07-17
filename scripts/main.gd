@@ -84,7 +84,8 @@ func _process(delta):
 		$SpawnTimer.start()
 		
 		
-		
+	if state.win:
+		win_game()	
 
 
 
@@ -197,6 +198,7 @@ func second_boss_battle():
 
  
 onready var death_popup:Node = load("res://UI/death_popup.tscn").instance()
+onready var win_popup:Node = load("res://UI/win_popup.tscn").instance()
 func _on_tally_system_game_over():
 	var music_position = $AudioStreamPlayer.get_playback_position()
 	$"AudioStreamPlayer".stop()
@@ -207,3 +209,5 @@ func _on_tally_system_game_over():
 	$"player".queue_free()
 	$".".add_child(death_popup) 
 
+func win_game():
+	$".".add_child(win_popup) 
