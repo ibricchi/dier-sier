@@ -1,7 +1,6 @@
 extends RigidBody2D
 
-var health: int =  1;
-var velocity : Vector2 = Vector2(0,0)
+var health: int =  1; 
 export var max_shot_strength = 1e3
  
 func _ready():
@@ -12,7 +11,7 @@ func _ready():
 	set_collision_layer(4)
 	set_collision_mask(7)
 	
-	update_color()
+	 
 	self.set_gravity_scale(0.0)
 	self.linear_damp = 0.3
 	

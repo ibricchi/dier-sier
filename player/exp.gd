@@ -18,8 +18,11 @@ func _physics_process(delta):
 func _on_collision(body):
 	print("Collision")
 	if body.is_in_group("balls"):
-		print("Body Valid")
-		print(remaining_time)
+		#print("Body Valid")
+		#print(remaining_time)
 		if remaining_time > 0:
 			print("Time Valid")
 			body.die()
+	if body.is_in_group("boss"):
+		body.health -= 10 
+		body.hurt()
