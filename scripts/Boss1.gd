@@ -28,23 +28,23 @@ func _ready():
 	
 	
 func _physics_process(delta):
-	
-	time_since_last_attack += delta 
-	if is_aggressive: 
-		if time_since_last_attack > 2.0 : 
-			time_since_last_attack -= randf() + 1.0
-			if state.damage != [3,3,3,3,3,3]:
-				var dir = (player.position - self.position).normalized()
-				var angle = ((randf() * 0.3 - 0.15) * PI) 
-				 
-				var shot_dir = 0.1 * Vector2( cos(angle)  , sin(angle)) + 0.9*dir
-				self.apply_central_impulse( randf() * max_shot_strength * shot_dir )
+	if state.damage != [3,3,3,3,3,3]:
+		time_since_last_attack += delta 
+		if is_aggressive: 
+			if time_since_last_attack > 2.0 : 
+				time_since_last_attack -= randf() + 1.0
+				if state.damage != [3,3,3,3,3,3]:
+					var dir = (player.position - self.position).normalized()
+					var angle = ((randf() * 0.3 - 0.15) * PI) 
+					 
+					var shot_dir = 0.1 * Vector2( cos(angle)  , sin(angle)) + 0.9*dir
+					self.apply_central_impulse( randf() * max_shot_strength * shot_dir )
+					
+			if not $Tween.is_active():
+				number_go_red()
 				
-		if not $Tween.is_active():
-			number_go_red()
-			
-	if player and (self.position - player.position).length() > 2000 : 
-		self.die()
+		if player and (self.position - player.position).length() > 2000 : 
+			self.die()
 		
 		
 func die():

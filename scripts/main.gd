@@ -83,7 +83,13 @@ func _process(delta):
 		
 		
 		
-	 
+
+func _unhandled_input(event):
+	if(event.is_action_pressed("ui_accept")):
+		state.damage = [3,3,3,3,3,3]
+		get_node("tally_system").check_exit()
+
+
 
 
 func _on_SpawnTimer_timeout():

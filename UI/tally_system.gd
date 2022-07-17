@@ -15,11 +15,6 @@ func _ready():
 func _on_dice_roll(dice_num):
 	$dice_frame/dice_num.texture = load("res://assets/dice_" + str(dice_num) + ".png")
 
-func _unhandled_input(event):
-	if(event.is_action_pressed("ui_accept")):
-		state.damage = [3,3,3,3,3,3]
-		check_exit()
-
 func check_exit():
 	var legal = []
 	for i in 6:

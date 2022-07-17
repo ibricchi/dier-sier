@@ -93,23 +93,23 @@ func update_color():
 			$Poolball.modulate = Color.black
 
 func _physics_process(delta):
-	 
-	if $Stopped_Timer.is_stopped():
-		if self.linear_velocity.length_squared() < 3000:
-			self.linear_damp = 0.5
-		if self.linear_velocity.length_squared() < 1200:
-			self.linear_damp = 1
-		if self.linear_velocity.length_squared() < 800 : 
-			self.linear_damp = 1.5
-			
-			$Stopped_Timer.wait_time = randf()  + 1.5
-			$Stopped_Timer.start()
-			$Tween.interpolate_property($number,"modulate",self.modulate,Color.red,$Stopped_Timer.time_left,Tween.TRANS_CUBIC, Tween.EASE_IN)
-			$Tween.start()
-			
-			
-	if player and (self.position - player.position).length() > 2000 : 
-		self.die()
+	if state.damage != [3,3,3,3,3,3]: 
+		if $Stopped_Timer.is_stopped():
+			if self.linear_velocity.length_squared() < 3000:
+				self.linear_damp = 0.5
+			if self.linear_velocity.length_squared() < 1200:
+				self.linear_damp = 1
+			if self.linear_velocity.length_squared() < 800 : 
+				self.linear_damp = 1.5
+				
+				$Stopped_Timer.wait_time = randf()  + 1.5
+				$Stopped_Timer.start()
+				$Tween.interpolate_property($number,"modulate",self.modulate,Color.red,$Stopped_Timer.time_left,Tween.TRANS_CUBIC, Tween.EASE_IN)
+				$Tween.start()
+				
+				
+		if player and (self.position - player.position).length() > 2000 : 
+			self.die()
 	
 func _on_PoolBall_body_entered(body):
 	self.linear_velocity *= 0.95 # slow down a bit when colliding
