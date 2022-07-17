@@ -89,9 +89,9 @@ func _on_SpawnTimer_timeout():
 	else:
 		spawn_wave()
 
-func update_health_bar():
-	get_node("boss_health").get_child(0).value = get_node("Boss1").get("health")
-	if get_node("boss_health").get_child(0).value <= 0:
+func update_health_bar(hp):
+	get_node("boss_health").get_child(0).value = hp
+	if hp <= 0:
 			get_node("boss_health").queue_free()
 
 func first_boss_battle():

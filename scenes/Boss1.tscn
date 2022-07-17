@@ -49,6 +49,7 @@ speed_scale = 8.0
 explosiveness = 1.0
 randomness = 0.2
 lifetime_randomness = 0.4
+local_coords = false
 texture = ExtResource( 4 )
 emission_shape = 1
 emission_sphere_radius = 20.0

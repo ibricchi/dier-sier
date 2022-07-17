@@ -64,8 +64,16 @@ func hurt(obj):
 	$Hurt_particles.amount = 20 + 5 * self.health
 	$Hurt_particles.direction = Vector2.RIGHT.rotated(player.velocity.angle() - rotation);
 	$Hurt_particles.color = $Poolball.modulate
-	$Hurt_particles.emitting = true
+ 
+	
+	var particle = $Hurt_particles.duplicate()
+	add_child_below_node(self, particle)
+	particle.emitting = true
+	
+	self.get_tree().get_root().get_node("main").update_health_bar(health)
+	
 	emit_signal("boss_hurt")
+	
 	if(health <= 0):
 		die()
 			
