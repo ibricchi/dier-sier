@@ -29,7 +29,7 @@ func set_health(hp):
 	self.update_color()
 
 func die():
-	# handle death animation here
+
 	$Bullet_Particles.emitting = false
 	state.add_points(1)
 	$number.hide()
@@ -95,22 +95,22 @@ func update_color():
 			$Poolball.modulate = Color.black
 
 func _physics_process(delta):
-	if state.damage != [3,3,3,3,3,3]: 
-		if $Stopped_Timer.is_stopped():
-			if self.linear_velocity.length_squared() < 3000:
-				self.linear_damp = 0.5
-			if self.linear_velocity.length_squared() < 1200:
-				self.linear_damp = 1
-			if self.linear_velocity.length_squared() < 800 : 
-				self.linear_damp = 1.5
-				
-				$Stopped_Timer.wait_time = randf()  + 1.5
-				$Stopped_Timer.start()
-				$Tween.interpolate_property($number,"modulate",self.modulate,Color.red,$Stopped_Timer.time_left,Tween.TRANS_CUBIC, Tween.EASE_IN)
-				$Tween.start()
-				
-				
-		if player and (self.position - player.position).length() > 2000: 
+	if $Stopped_Timer.is_stopped():
+		if self.linear_velocity.length_squared() < 3000:
+			self.linear_damp = 0.5
+		if self.linear_velocity.length_squared() < 1200:
+			self.linear_damp = 1
+		if self.linear_velocity.length_squared() < 800 : 
+			self.linear_damp = 1.5
+			
+			$Stopped_Timer.wait_time = randf()  + 1.5
+			$Stopped_Timer.start()
+			$Tween.interpolate_property($number,"modulate",self.modulate,Color.red,$Stopped_Timer.time_left,Tween.TRANS_CUBIC, Tween.EASE_IN)
+			$Tween.start()
+			
+			
+	if player:
+		if (self.position - player.position).length() > 2000: 
 			self.die()
 	
 func _on_PoolBall_body_entered(body):
@@ -127,7 +127,7 @@ func _on_PoolBall_body_entered(body):
 func _on_Stopped_Timer_timeout():
 	self.linear_damp = 0.3
 	
-	if self.health:
+	if self.health and player:
 	
 		var dir = (player.position - self.position).normalized()
 		var angle = ((randf() * 0.5 - 0.25) * PI) / self.health
