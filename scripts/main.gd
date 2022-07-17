@@ -31,7 +31,7 @@ func spawn_wave( ):
 	$SpawnTimer.wait_time = wave_cooldown
 	var spawns = $Spawns.get_children() 
 	spawns.shuffle()
-	var spawn_num : int = min( int( randf() * state.wave) + 1, 6)
+	var spawn_num : int = min( int( (randf() * state.wave + 1)) + 1, 6)
 		
 	for i in range( spawn_num ) :
 		var spawn_point = spawns[i]
