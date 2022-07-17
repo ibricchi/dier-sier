@@ -1,48 +1,45 @@
-extends RigidBody2D
+ extends RigidBody2D
 
 export var health : int = 100
 var is_aggressive = true
-var time_since_last_attack = 0.0
-var max_shot_strength = 2e4
+var time_since_last_bump = 0.0
+var max_shot_strength = 1e3
 
 onready var player = self.get_tree().get_root().get_node("main/player")
 signal boss_hurt
+
 func _ready():
 	
 	self.mass = 15
 	add_to_group("boss")
-	$Poolball.modulate = Color.maroon
+	$Poolball.modulate = Color.black
 	$number.modulate = Color(1,1,1)
 	set_collision_layer(4)
 	set_collision_mask(7)
 	self.set_gravity_scale(0.0)
-	self.linear_damp = 0.2
-	self.angular_damp = 0.1
+	self.linear_damp = 2
+	self.angular_damp = 1
 	self.contact_monitor = true
 	self.contacts_reported = 1
 	self.set_bounce(1.0)
+	 
 	
-	$Stopped_Timer.start()
-	number_go_red()
-	
-	
+	self.get_tree().get_root().get_node("main").update_health_bar(health)
 	
 	
 func _physics_process(delta):
-	time_since_last_attack += delta 
-	if is_aggressive: 
-		if time_since_last_attack > 2.0 : 
-			time_since_last_attack -= randf() + 1.0
-			
-			var dir = (player.position - self.position).normalized()
-			var angle = ((randf() * 0.3 - 0.15) * PI) 
-			 
-			var shot_dir = 0.1 * Vector2( cos(angle)  , sin(angle)) + 0.9*dir
-			self.apply_central_impulse( randf() * max_shot_strength * shot_dir )
-			
-		if not $Tween.is_active():
-			number_go_red()
-			
+	
+	time_since_last_bump += delta
+	
+	if time_since_last_bump > 0.5 : 
+		time_since_last_bump -= 0.5
+		
+		var dir = ( self.position - player.position).normalized()
+		var angle = ((randf() * 0.9 - 0.45) * PI) 
+		 
+		var shot_dir = 0.1 * Vector2( cos(angle)  , sin(angle)) + 0.9*dir
+		self.apply_central_impulse( randf() * max_shot_strength * shot_dir )
+	
 	if player and (self.position - player.position).length() > 2000 : 
 		self.die()
 		
@@ -85,24 +82,12 @@ func hurt(obj):
 	if(health <= 0):
 		die()
 			
-func number_go_red():
-	$Tween.interpolate_property($number,"modulate",Color(1,1,1),Color.red, 1.2 ,Tween.TRANS_BOUNCE , Tween.EASE_IN_OUT)
+func number_go_red(time):
+	$Tween.interpolate_property($number,"modulate",Color(1,1,1),Color.red, time ,Tween.TRANS_QUINT , Tween.EASE_OUT)
 	$Tween.start()
+ 
+	
 
-func _on_Stopped_Timer_timeout():
-	self.is_aggressive = false
-	$Tween.stop($number)
-	$number.modulate = Color(1,1,1)
-	
-	self.linear_damp = 5
-	self.angular_damp = 8
-	$Tween.interpolate_property($number,"modulate",Color(1,1,1),Color.green, 5,Tween.TRANS_BOUNCE, Tween.EASE_OUT)
-	$Tween.start()
-	yield(get_tree().create_timer(randf() * 4 + 2), "timeout")
-	number_go_red()
-	yield(get_tree().create_timer(1.5), "timeout")
-	self.is_aggressive = true
-	self.linear_damp = 0.2
-	self.angular_damp = 0.1
-	$Stopped_Timer.start()
-	
+
+func _on_Firing_Timer_timeout():
+	pass # Replace with function body.

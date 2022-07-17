@@ -4,11 +4,12 @@ extends Node2D
 var poolballsprite_res : Resource = preload("res://scenes/Poolballsprite.tscn") 
 var poolball_res  : Resource = preload("res://scenes/PoolBall.tscn") 
 var boss1_res : Resource = preload("res://scenes/Boss1.tscn")
+var boss2_res : Resource = preload("res://scenes/Boss2.tscn")
 var boss_health_bar : Resource = preload("res://scenes/Boss_health.tscn")
 var boss_respawns = 1 
 var wave_number = 5
 var boss1_wave_number = 5
-var boss2_wave_number = 8
+var boss2_wave_number = 6
 export var wave_cooldown : int = 40 
 
 func _ready():
@@ -58,7 +59,8 @@ func spawn_rigid_poolball( pos , vel, hp) :
 	var poolball : Node
 	if hp == 7 :
 		poolball = boss1_res.instance()
-		
+	elif hp == 8 :
+		poolball = boss2_res.instance()
 	else:
 		poolball  = poolball_res.instance()
 		poolball.set_health(hp)
@@ -90,7 +92,7 @@ func _on_SpawnTimer_timeout():
 		spawn_wave()
 
 func update_health_bar(hp):
-	get_node("boss_health").get_child(0).value = hp
+	get_node("boss_health").change_value(hp)
 	if hp <= 0:
 			get_node("boss_health").queue_free()
 
@@ -124,10 +126,13 @@ func first_boss_battle():
 	
 	var boss_health:Node = boss_health_bar.instance()
 	
-	boss_health.get_node("health_bar").value = poolballsprite.get("health")
+	# boss_health.get_node("health_bar").value = poolballsprite.get("health")
 	yield(get_tree().create_timer(2), "timeout")
 	add_child_below_node(get_node("tally_system"),boss_health)
-	get_node("Boss1").connect("boss_hurt", get_node("main"), "update_health_bar")
+	# get_node("Boss1").connect("boss_hurt", get_node("main"), "update_health_bar")
+	
+	update_health_bar(100)
+	
 	while not get_tree().get_nodes_in_group("balls").empty():
 		yield(get_tree().create_timer(5), "timeout")
 	

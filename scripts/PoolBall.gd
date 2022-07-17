@@ -2,6 +2,8 @@ extends RigidBody2D
 
 var health: int =  1; 
 export var max_shot_strength = 1e3
+
+onready var player = self.get_tree().get_root().get_node("main/player")
  
 func _ready():
 	add_to_group("balls")
@@ -103,6 +105,10 @@ func _physics_process(delta):
 			$Stopped_Timer.start()
 			$Tween.interpolate_property($number,"modulate",self.modulate,Color.red,$Stopped_Timer.time_left,Tween.TRANS_CUBIC, Tween.EASE_IN)
 			$Tween.start()
+			
+			
+	if player and (self.position - player.position).length() > 2000 : 
+		self.die()
 	
 func _on_PoolBall_body_entered(body):
 	self.linear_velocity *= 0.95 # slow down a bit when colliding
