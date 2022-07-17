@@ -205,3 +205,4 @@ func _on_tally_system_game_over():
 	
 	$"player".queue_free()
 	$".".add_child(death_popup) 
+

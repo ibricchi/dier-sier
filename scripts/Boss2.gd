@@ -51,7 +51,6 @@ func _physics_process(delta):
 			
 		
 func die():
-	
 	# handle death animation here
 	$number.hide()
 	$Poolball.hide()
