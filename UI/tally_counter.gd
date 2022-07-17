@@ -36,6 +36,9 @@ func update_gui(hits, damage, super):
 		$dice_frame.texture = load("res://assets/dice_super1.png")
 	elif super == 2:
 		$dice_frame.texture = load("res://assets/dice_super2.png")
+	
+	if damage == 3:
+		$dice_frame.texture = load("res://assets/dice_broken.png")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
