@@ -72,9 +72,9 @@ func die():
 	
 	
 	
-		
+
 func hurt(obj):
-	health -= 4	
+	health -= 10 * (state.super[player.prev_dice_roll] + 1)
 	$Hurt_particles.amount = 20 + 5 * self.health
 	$Hurt_particles.direction = Vector2.RIGHT.rotated(player.velocity.angle() - rotation);
 	$Hurt_particles.color = $Poolball.modulate
