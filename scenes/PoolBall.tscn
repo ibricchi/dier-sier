@@ -90,6 +90,7 @@ color_ramp = ExtResource( 6 )
 
 [node name="Bullet_Particles" type="CPUParticles2D" parent="."]
 position = Vector2( -31, 0 )
+emitting = false
 amount = 20
 lifetime = 0.1
 explosiveness = 0.1
