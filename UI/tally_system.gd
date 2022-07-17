@@ -10,6 +10,10 @@ func _on_player_gave_damage(dice_num):
 
 
 
+func _unhandled_input(event):
+	if(event.is_action_pressed("ui_accept")):
+		state.damage = [3,3,3,3,3,3]
+		check_exit()
 
 func check_exit():
 	var legal = []

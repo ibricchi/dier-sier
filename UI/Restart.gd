@@ -15,7 +15,8 @@ func _ready():
 #func _process(delta):
 #	pass
 
-
-
 func _on_Restart_button_down():
+	state.hits = [0,0,0,0,0,0]
+	state.damage = [0,0,0,0,0,0]
+	state.super = [0,0,0,0,0,0]
 	get_tree().change_scene_to(state.game_scene)

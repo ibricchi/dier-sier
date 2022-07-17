@@ -6,7 +6,7 @@ var prev_dice_roll: int
 var dice_roll: int
 var velocity: Vector2
 var dash_vector: Vector2
-var arrow: bool = false
+var arrow: bool = true
 var immobile:bool = false
 
 func _ready():
