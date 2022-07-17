@@ -7,4 +7,4 @@ extends Container
 
  
 func _process(delta):
-	$Label.text = "Wave: %s" % state.wave
+	$Label.text = "Time: %s" % int(state.time)
