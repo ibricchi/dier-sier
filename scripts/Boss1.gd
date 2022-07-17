@@ -67,7 +67,7 @@ func hurt(obj):
  
 	
 	var particle = $Hurt_particles.duplicate()
-	add_child_below_node(self, particle)
+	self.add_child(particle)
 	particle.emitting = true
 	
 	self.get_tree().get_root().get_node("main").update_health_bar(health)

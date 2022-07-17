@@ -51,7 +51,7 @@ func hurt(player):
 	#$Hurt_particles.emitting = true
 	
 	var particle = $Hurt_particles.duplicate()
-	add_child_below_node(self, particle)
+	self.add_child(particle)
 	particle.emitting = true
 	
 
