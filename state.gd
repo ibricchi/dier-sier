@@ -6,6 +6,7 @@ var super: Array = [0,0,0,0,0,0]
 
 
 signal reload_overlay
+signal dice_rolled(num_rolled)
 
 onready var rng = RandomNumberGenerator.new()
 onready var game_scene: PackedScene = load("res://main.tscn")
@@ -16,4 +17,6 @@ func roll_dice():
 			legal.push_back(i + 1)
 	if len(legal) == 0:
 		return 0
-	return legal[rng.randi() % len(legal)]
+	var ret = legal[rng.randi() % len(legal)]
+	emit_signal("dice_rolled", ret)
+	return ret

@@ -15,13 +15,16 @@
 [node name="tally_system" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 10 )
 
 [node name="tally-1" type="Container" parent="."]
+modulate = Color( 0.831373, 0.831373, 0.831373, 0.839216 )
 margin_left = 155.0
 margin_top = 100.0
 margin_right = 365.0
 margin_bottom = 149.0
+mouse_filter = 2
 script = ExtResource( 3 )
 
 [node name="hits" type="Control" parent="tally-1"]
@@ -131,10 +134,12 @@ texture = ExtResource( 4 )
 stretch_mode = 6
 
 [node name="tally-2" type="Container" parent="."]
+modulate = Color( 0.831373, 0.831373, 0.831373, 0.839216 )
 margin_left = 155.0
 margin_top = 261.0
 margin_right = 365.0
 margin_bottom = 310.0
+mouse_filter = 2
 script = ExtResource( 3 )
 
 [node name="hits" type="Control" parent="tally-2"]
@@ -244,10 +249,12 @@ texture = ExtResource( 4 )
 stretch_mode = 6
 
 [node name="tally-3" type="Container" parent="."]
+modulate = Color( 0.831373, 0.831373, 0.831373, 0.839216 )
 margin_left = 155.0
 margin_top = 422.0
 margin_right = 365.0
 margin_bottom = 471.0
+mouse_filter = 2
 script = ExtResource( 3 )
 
 [node name="hits" type="Control" parent="tally-3"]
@@ -357,10 +364,12 @@ texture = ExtResource( 4 )
 stretch_mode = 6
 
 [node name="tally-4" type="Container" parent="."]
+modulate = Color( 0.831373, 0.831373, 0.831373, 0.839216 )
 margin_left = 705.0
 margin_top = 100.0
 margin_right = 915.0
 margin_bottom = 149.0
+mouse_filter = 2
 script = ExtResource( 3 )
 
 [node name="hits" type="Control" parent="tally-4"]
@@ -470,10 +479,12 @@ texture = ExtResource( 4 )
 stretch_mode = 6
 
 [node name="tally-5" type="Container" parent="."]
+modulate = Color( 0.831373, 0.831373, 0.831373, 0.839216 )
 margin_left = 705.0
 margin_top = 261.0
 margin_right = 915.0
 margin_bottom = 310.0
+mouse_filter = 2
 script = ExtResource( 3 )
 
 [node name="hits" type="Control" parent="tally-5"]
@@ -583,39 +594,46 @@ texture = ExtResource( 4 )
 stretch_mode = 6
 
 [node name="tally-6" type="Container" parent="."]
+modulate = Color( 0.831373, 0.831373, 0.831373, 0.839216 )
 margin_left = 705.0
 margin_top = 422.0
 margin_right = 915.0
 margin_bottom = 471.0
+mouse_filter = 2
 script = ExtResource( 3 )
 
 [node name="hits" type="Control" parent="tally-6"]
 margin_right = 40.0
 margin_bottom = 40.0
+mouse_filter = 2
 
 [node name="1" type="ColorRect" parent="tally-6/hits"]
 margin_left = 58.0
 margin_top = 6.0
 margin_right = 62.0
 margin_bottom = 43.0
+mouse_filter = 2
 
 [node name="2" type="ColorRect" parent="tally-6/hits"]
 margin_left = 66.0
 margin_top = 6.0
 margin_right = 70.0
 margin_bottom = 43.0
+mouse_filter = 2
 
 [node name="3" type="ColorRect" parent="tally-6/hits"]
 margin_left = 74.0
 margin_top = 6.0
 margin_right = 78.0
 margin_bottom = 43.0
+mouse_filter = 2
 
 [node name="4" type="ColorRect" parent="tally-6/hits"]
 margin_left = 82.0
 margin_top = 6.0
 margin_right = 86.0
 margin_bottom = 43.0
+mouse_filter = 2
 
 [node name="5" type="ColorRect" parent="tally-6/hits"]
 margin_left = 92.0
@@ -623,30 +641,35 @@ margin_top = 11.0
 margin_right = 96.0
 margin_bottom = 60.0
 rect_rotation = 59.9999
+mouse_filter = 2
 
 [node name="6" type="ColorRect" parent="tally-6/hits"]
 margin_left = 13.435
 margin_top = 6.0
 margin_right = 17.435
 margin_bottom = 43.0
+mouse_filter = 2
 
 [node name="7" type="ColorRect" parent="tally-6/hits"]
 margin_left = 21.435
 margin_top = 6.0
 margin_right = 25.435
 margin_bottom = 43.0
+mouse_filter = 2
 
 [node name="8" type="ColorRect" parent="tally-6/hits"]
 margin_left = 29.435
 margin_top = 6.0
 margin_right = 33.435
 margin_bottom = 43.0
+mouse_filter = 2
 
 [node name="9" type="ColorRect" parent="tally-6/hits"]
 margin_left = 37.435
 margin_top = 6.0
 margin_right = 41.435
 margin_bottom = 43.0
+mouse_filter = 2
 
 [node name="10" type="ColorRect" parent="tally-6/hits"]
 margin_left = 47.435
@@ -654,12 +677,14 @@ margin_top = 11.0
 margin_right = 51.435
 margin_bottom = 60.0
 rect_rotation = 59.9999
+mouse_filter = 2
 
 [node name="dice_frame" type="TextureRect" parent="tally-6"]
 margin_left = 102.0
 margin_top = 2.0
 margin_right = 147.0
 margin_bottom = 47.0
+mouse_filter = 2
 texture = ExtResource( 1 )
 stretch_mode = 6
 
@@ -668,6 +693,7 @@ margin_left = 9.0
 margin_top = 9.0
 margin_right = 36.0
 margin_bottom = 36.0
+mouse_filter = 2
 texture = ExtResource( 7 )
 stretch_mode = 6
 
@@ -676,6 +702,7 @@ margin_left = 155.0
 margin_top = 17.0
 margin_right = 171.0
 margin_bottom = 33.0
+mouse_filter = 2
 texture = ExtResource( 4 )
 stretch_mode = 6
 
@@ -684,6 +711,7 @@ margin_left = 174.0
 margin_top = 17.0
 margin_right = 190.0
 margin_bottom = 33.0
+mouse_filter = 2
 texture = ExtResource( 4 )
 stretch_mode = 6
 
@@ -692,16 +720,41 @@ margin_left = 193.0
 margin_top = 17.0
 margin_right = 209.0
 margin_bottom = 33.0
+mouse_filter = 2
 texture = ExtResource( 4 )
 stretch_mode = 6
 
 [node name="Wave_number" type="Container" parent="."]
+modulate = Color( 0.831373, 0.831373, 0.831373, 0.839216 )
 margin_right = 80.0
 margin_bottom = 20.0
+mouse_filter = 2
 script = ExtResource( 11 )
 
 [node name="Label" type="Label" parent="Wave_number"]
+modulate = Color( 0.831373, 0.831373, 0.831373, 0.839216 )
 margin_left = 128.0
 margin_top = 20.0
 margin_right = 200.0
 margin_bottom = 30.0
+
+[node name="dice_frame" type="TextureRect" parent="."]
+modulate = Color( 0.831373, 0.831373, 0.831373, 0.839216 )
+margin_left = 451.0
+margin_top = 200.0
+margin_right = 496.0
+margin_bottom = 245.0
+rect_scale = Vector2( 4.21096, 4.21096 )
+mouse_filter = 2
+texture = ExtResource( 1 )
+stretch_mode = 6
+
+[node name="dice_num" type="TextureRect" parent="dice_frame"]
+modulate = Color( 0.831373, 0.831373, 0.831373, 0.839216 )
+margin_left = 9.0
+margin_top = 9.0
+margin_right = 36.0
+margin_bottom = 36.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+stretch_mode = 6
