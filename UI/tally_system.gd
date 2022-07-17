@@ -15,7 +15,7 @@ func _ready():
 func _on_dice_roll(dice_num):
 	$dice_frame/dice_num.texture = load("res://assets/dice_" + str(dice_num) + ".png")
 
-func check_exit():
+func check_exit():	
 	var legal = []
 	for i in 6:
 		if state.damage[i] < 3:

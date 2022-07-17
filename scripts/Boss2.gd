@@ -33,24 +33,25 @@ func _ready():
 	
 	
 func _physics_process(delta):
-	
-	time_since_last_bump += delta
-	
-	if time_since_last_bump > 1.5 : 
-		time_since_last_bump -= 1.0 + 0.5 * randf()
+	if state.damage != [3,3,3,3,3,3]:
+		time_since_last_bump += delta
 		
-		var dir = ( self.position - player.position).normalized()
-		var angle = ((randf() * 1.2 - 0.6) * PI) 
-		 
-		var shot_dir = 0.7 * Vector2( cos(angle)  , sin(angle)) + 0.3*dir
-		self.apply_central_impulse( (0.5 + 0.5 * randf()) * max_shot_strength * shot_dir )
-	
-	if player: 
-		if self and (self.position - player.position).length() > 2000 : 
-			self.die()
+		if time_since_last_bump > 1.5 : 
+			time_since_last_bump -= 1.0 + 0.5 * randf()
+			
+			var dir = ( self.position - player.position).normalized()
+			var angle = ((randf() * 1.2 - 0.6) * PI) 
+			 
+			var shot_dir = 0.7 * Vector2( cos(angle)  , sin(angle)) + 0.3*dir
+			self.apply_central_impulse( (0.5 + 0.5 * randf()) * max_shot_strength * shot_dir )
 		
+		if player: 
+			if self and (self.position - player.position).length() > 2000 : 
+				self.die()
+			
 		
 func die():
+	
 	# handle death animation here
 	$number.hide()
 	$Poolball.hide()

@@ -17,6 +17,7 @@ var boss2_wave_number = 0
 export var wave_cooldown : int = 40 
 
 func _ready():
+	get_tree().paused = false
 	randomize()
 	state.start_timer(true)
 	$SpawnTimer.wait_time = wave_cooldown

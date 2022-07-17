@@ -9,7 +9,6 @@ extends AudioStreamPlayer
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$".".play()
-	print("Loaded to: ", state.volume)
 	set_volume_db(state.volume)
 
 
@@ -18,6 +17,4 @@ func _ready():
 #	pass
 
 func _on_settings_change_volume(value):
-	state.volume = linear2db(value)
-	print("Changed to: ", state.volume)
 	set_volume_db(state.volume)
