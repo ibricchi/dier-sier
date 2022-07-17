@@ -78,6 +78,7 @@ func _process(delta):
 
 
 func _on_SpawnTimer_timeout():
+ 
 	if wave_number == boss1_wave_number:
 		first_boss_battle()
 	else:
@@ -111,3 +112,8 @@ func first_boss_battle():
 		yield(get_tree().create_timer(2), "timeout")
 	$SpawnTimer.wait_time = 1	
 	$SpawnTimer.start()
+ 
+onready var death_popup:Node = load("res://UI/death_popup.tscn").instance()
+func _on_tally_system_game_over():
+	$"player".queue_free()
+	$".".add_child(death_popup) 

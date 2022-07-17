@@ -20,13 +20,12 @@ state="*res://state.gd"
 
 [display]
 
-window/size/width=1080
-window/size/height=640
-window/size/resizable=false
+window/size/width=1088
+window/size/height=576
 window/size/test_width=1620
 window/size/test_height=960
 window/stretch/mode="2d"
-window/stretch/aspect="keep_width"
+window/stretch/aspect="keep"
 
 [editor_plugins]
 
@@ -89,4 +88,5 @@ common/enable_pause_aware_picking=true
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
+environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

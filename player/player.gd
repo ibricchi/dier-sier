@@ -6,7 +6,7 @@ var prev_dice_roll: int
 var dice_roll: int
 var velocity: Vector2
 var dash_vector: Vector2
-var arrow: bool = false
+var arrow: bool = true
 var immobile:bool = false
 
 func _ready():
@@ -15,6 +15,7 @@ func _ready():
 	self.set_collision_layer(1)
 	self.set_collision_mask(7)
 	self.add_to_group("player")
+	immobile = false
  
 func _on_lost_dice(dice_num):
 	dice_roll = state.roll_dice()
@@ -146,8 +147,9 @@ func _on_collision(body):
 	if (body.is_in_group("balls") or body.is_in_group("boss")) and not immobile:
 		if(dashing):
 			# handle giving dammage from UI
-			emit_signal("gave_damage", prev_dice_roll)
-			body.hurt()
+			if(body.health == prev_dice_roll):
+				emit_signal("gave_damage", prev_dice_roll)
+			body.hurt(self)
 		else:
 			emit_signal("take_damage", prev_dice_roll)
 			# handle taking damage from UI
