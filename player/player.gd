@@ -155,7 +155,7 @@ func _on_collision(body):
 			# handle taking damage from UI
 			immobile = true
 			var dir = (   self.position - body.position).normalized()
-			self.velocity = abs(  body.get_linear_velocity().dot(dir) )  * dir 
+			self.velocity = max(abs(  body.get_linear_velocity().dot(dir) ) , 30) * dir 
 	 
 
 func _on_exp_body_entered(body):
