@@ -4,7 +4,7 @@ var hits: Array = [0,0,0,0,0,0]
 var damage: Array = [0,0,0,0,0,0]
 var super: Array = [0,0,0,0,0,0]
 var points: int = 0
-var wave: int = 6
+var wave: int = 5
 var time: float = 0
 
 var volume: float = -5

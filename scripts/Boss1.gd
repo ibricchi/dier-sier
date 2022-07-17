@@ -44,12 +44,16 @@ func _physics_process(delta):
 			number_go_red()
 			
 	if player and (self.position - player.position).length() > 2000 : 
-
-		self.die()
+		self.get_parent().remove_child(self)
+		self.queue_free()
 		
-		
+onready var alive = true
 func die():
+	alive = false
+	if not alive:
+		pass
 	# handle death animation here
+	state.add_points(15)
 	$number.hide()
 	$Poolball.hide()
 	
@@ -98,7 +102,7 @@ func _on_Stopped_Timer_timeout():
 	self.angular_damp = 8
 	$Tween.interpolate_property($number,"modulate",Color(1,1,1),Color.green, 5,Tween.TRANS_BOUNCE, Tween.EASE_OUT)
 	$Tween.start()
-	yield(get_tree().create_timer(randf() * 4 + 2), "timeout")
+	yield(get_tree().create_timer(randf() * 4 + 3.5), "timeout")
 	number_go_red()
 	yield(get_tree().create_timer(1.5), "timeout")
 	self.is_aggressive = true

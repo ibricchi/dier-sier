@@ -47,13 +47,18 @@ func _physics_process(delta):
 		
 		if player: 
 			if self and (self.position - player.position).length() > 2000 : 
-				self.die()
+				self.get_parent().remove_child(self)
+				self.queue_free()
 			
-		
+onready var alive = true
 func die():
+	alive = false
+	if not alive:
+		pass
 	# handle death animation here
 	$number.hide()
 	$Poolball.hide()
+	state.add_points(25)
 	state.win = true
 	
 	var player = get_tree().get_root().get_node("main/player")

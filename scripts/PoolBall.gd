@@ -28,7 +28,11 @@ func set_health(hp):
 	self.health = hp
 	self.update_color()
 
+onready var alive = true
 func die():
+	alive = false
+	if not alive:
+		pass
 
 	$Bullet_Particles.emitting = false
 	if not is_bullet:
@@ -36,8 +40,9 @@ func die():
 	$number.hide()
 	$Poolball.hide()
 	var player = get_tree().get_root().get_node("main/player")
-	$Death_particles.direction = Vector2.RIGHT.rotated(player.velocity.angle() - rotation)
-	$Death_particles.emitting = true
+	if player != null:
+		$Death_particles.direction = Vector2.RIGHT.rotated(player.velocity.angle() - rotation)
+		$Death_particles.emitting = true
 	
 	self.set_collision_layer(0)
 	self.set_collision_mask(0)
@@ -97,12 +102,12 @@ func update_color():
 
 func _physics_process(delta):
 	if $Stopped_Timer.is_stopped():
-		if self.linear_velocity.length_squared() < 3000:
+		if self.linear_velocity.length_squared() < 3500:
 			self.linear_damp = 0.5
-		if self.linear_velocity.length_squared() < 1200:
-			self.linear_damp = 1
-		if self.linear_velocity.length_squared() < 800 : 
-			self.linear_damp = 1.5
+		if self.linear_velocity.length_squared() < 2000:
+			self.linear_damp = 2
+		if self.linear_velocity.length_squared() < 1200 : 
+			self.linear_damp = 4
 			
 			$Stopped_Timer.wait_time = randf()  + 1.5
 			$Stopped_Timer.start()
@@ -112,7 +117,8 @@ func _physics_process(delta):
 			
 	if player:
 		if (self.position - player.position).length() > 2000: 
-			self.die()
+			self.get_parent().remove_child(self)
+			self.queue_free()
 			
 		#if self.is_bullet : 
 			#$Bullet_Particles.amount = int(self.linear_velocity.length() / 20 ) 
