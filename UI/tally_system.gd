@@ -9,7 +9,7 @@ func _on_player_gave_damage(dice_num):
 	state.super[dice_num-1] = state.hits[dice_num-1] / 3
 	get_child(dice_num-1).update_gui(state.hits[dice_num-1], state.damage[dice_num-1], state.super[dice_num -1])
 	var player = get_tree().get_root().get_node("main/player")
-	dice_num = player.prev_dice_num
+	dice_num = player.prev_dice_roll
 	var super = state.super[dice_num - 1]
 	if super == 0:
 		$dice_frame.texture = load("res://assets/dice_normal.png")
