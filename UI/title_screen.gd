@@ -2,6 +2,9 @@ extends CanvasLayer
 
 onready var game_scene: PackedScene = load("res://main.tscn")
 
+func _ready():
+	get_tree().paused = false
+
 func _on_play_button():
 	state.hits = [0,0,0,0,0,0]
 	state.damage = [0,0,0,0,0,0]

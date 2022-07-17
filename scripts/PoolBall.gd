@@ -110,7 +110,7 @@ func _physics_process(delta):
 				$Tween.start()
 				
 				
-		if player and (self.position - player.position).length() > 2000: 
+		if player != null and (self.position - player.position).length() > 2000: 
 			self.die()
 	
 func _on_PoolBall_body_entered(body):
