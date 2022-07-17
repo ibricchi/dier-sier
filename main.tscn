@@ -270,6 +270,7 @@ one_shot = true
 [node name="AudioStreamPlayer" parent="." instance=ExtResource( 3 )]
 
 [connection signal="ready_to_use" from="Node2D" to="player" method="_on_dash_bar_ready_to_use"]
+[connection signal="game_over" from="tally_system" to="." method="_on_tally_system_game_over"]
 [connection signal="lost_dice" from="tally_system" to="player" method="_on_lost_dice"]
 [connection signal="gave_damage" from="player" to="tally_system" method="_on_player_gave_damage"]
 [connection signal="take_damage" from="player" to="tally_system" method="_on_player_take_damage"]

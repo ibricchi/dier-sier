@@ -9,14 +9,21 @@ func _on_player_gave_damage(dice_num):
 	state.super[dice_num-1] = state.hits[dice_num-1] / 3
 	get_child(dice_num-1).update_gui(state.hits[dice_num-1], state.damage[dice_num-1], state.super[dice_num -1])
 
-onready var death_screen: PackedScene = load("res://UI/title_screen.tscn")
+
+
+func _unhandled_input(event):
+	if(event.is_action_pressed("ui_accept")):
+		state.damage = [3,3,3,3,3,3]
+		check_exit()
+
 func check_exit():
 	var legal = []
 	for i in 6:
 		if state.damage[i] < 3:
 			legal.push_back(i + 1)
 	if len(legal) == 0:
-		get_tree().change_scene_to(death_screen)
+		emit_signal("game_over")
+		
 
 signal lost_dice(dice_num)
 func _on_player_take_damage(dice_num):
