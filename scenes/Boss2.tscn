@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://assets/ball7.png" type="Texture" id=1]
+[ext_resource path="res://assets/ball8.png" type="Texture" id=1]
 [ext_resource path="res://assets/poolball.png" type="Texture" id=2]
 [ext_resource path="res://scripts/Boss1.gd" type="Script" id=3]
 [ext_resource path="res://assets/particle1.png" type="Texture" id=4]
